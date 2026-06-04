@@ -83,3 +83,17 @@ Layout and rendering must not become the bottleneck during polling:
 - Keep operator views readable first; raw hex stays in Frame Trace and Inspector.
 - Wide protocol columns, horizontal scroll, ellipsis, and tooltip are preferred over visually clipped text.
 - Serial close/dispose driver exceptions must be converted into Diagnostics evidence, not allowed to interrupt Stop/Close workflow.
+
+## v1.2.27 icon and logo regression guardrail
+
+- Keep command rail icons on the Lucide-style monoline resource set unless a replacement is reviewed at actual 18–22 px rail size.
+- Do not swap the app logo to a large poster-like image; the rail logo must remain compact, readable, and calm inside a 68 px card.
+- Custom protocol geometries are allowed for diagrams or empty states, not for the primary command rail unless they are visually simpler than the current Lucide set.
+
+## Software Icon / Rail Logo Identity Lock
+- Current approved software identity is a compact `IEC / 103` stacked mark.
+- Approved palette: near-black/ink, white typography, and restrained application blue accent (`#2563EB` / `#1D4ED8`).
+- Do not replace the rail logo with decorative protocol symbols or dense custom drawings.
+- Do not replace clean Lucide-style command icons with custom geometry icons unless the replacement is visually reviewed at 68 px rail size and 32 px taskbar size.
+- The WPF window logo should use `Assets/Icons/iec103-icon.png`; the executable icon should use `Assets\Icons\iec103-app.ico`.
+

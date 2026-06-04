@@ -4,7 +4,7 @@
         Title="ArIEC103 - IEC-103 Master Tester"
         Width="1540" Height="900" MinWidth="1280" MinHeight="760"
         WindowStartupLocation="CenterScreen"
-        Icon="Assets/Icons/ariec103-icon.png"
+        Icon="Assets/Icons/iec103-icon.png"
         UseLayoutRounding="True" SnapsToDevicePixels="True"
         FontFamily="{StaticResource AppFont}">
     <Grid Margin="12">
@@ -27,43 +27,43 @@
                 </LinearGradientBrush>
             </Border.Background>
             <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Center">
-                <Border Width="68" Height="70" CornerRadius="18" Margin="0,0,0,13" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" ClipToBounds="True">
+                <Border Width="60" Height="60" CornerRadius="18" Margin="0,0,0,13" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" ClipToBounds="True">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#FFFFFF" Offset="0" />
                             <GradientStop Color="#F2F7FF" Offset="1" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Image Source="Assets/Icons/ariec103-icon.png" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" />
+                    <Image Source="Assets/Icons/iec103-icon.png" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" />
                 </Border>
 
                 <Button x:Name="SetupButton" Style="{StaticResource RailIconButton}" Click="OpenSetup_Click" ToolTip="Setup connection and polling">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource ArIconSetup}" />
+                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource LucideSettings}" />
                         <TextBlock Text="Setup" Style="{StaticResource RailButtonCaption}" />
                     </StackPanel>
                 </Button>
                 <Button x:Name="StartButton" Style="{StaticResource RailPrimaryIconButton}" Click="Start_Click" ToolTip="Connect and monitor continuously">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource ArIconConnect}" />
+                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource LucideMonitorUp}" />
                         <TextBlock Text="Connect" Style="{StaticResource RailButtonCaption}" />
                     </StackPanel>
                 </Button>
                 <Button x:Name="StopButton" Style="{StaticResource RailDangerIconButton}" Click="Stop_Click" IsEnabled="False" ToolTip="Disconnect and close transport">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource ArIconDisconnect}" />
+                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource LucideMonitorX}" />
                         <TextBlock Text="Disconnect" Style="{StaticResource RailButtonCaption}" />
                     </StackPanel>
                 </Button>
                 <Button x:Name="ExportMarkdownButton" Style="{StaticResource RailIconButton}" Click="ExportMarkdown_Click" IsEnabled="False" ToolTip="Export evidence report">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource ArIconReport}" />
+                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource LucideFileText}" />
                         <TextBlock Text="Export" Style="{StaticResource RailButtonCaption}" />
                     </StackPanel>
                 </Button>
                 <Button x:Name="ClearButton" Style="{StaticResource RailIconButton}" Click="Clear_Click" ToolTip="Clear visible session rows">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource ArIconClear}" />
+                        <Path Style="{StaticResource RailIconPath}" Data="{StaticResource LucideTrash2}" />
                         <TextBlock Text="Clear" Style="{StaticResource RailButtonCaption}" />
                     </StackPanel>
                 </Button>
@@ -198,7 +198,7 @@
 
                         <Button x:Name="ExportDataButton" Grid.Column="1" Style="{StaticResource SecondaryButton}" Width="148" Height="34" Padding="12,6" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ExportData_Click" ToolTip="Export selected tab grid as tab-separated .txt">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Path Style="{StaticResource CircleIconPath}" Data="{StaticResource ArIconDownload}" />
+                                <Path Style="{StaticResource CircleIconPath}" Data="{StaticResource LucideDownload}" />
                                 <TextBlock Text="Export Data" Margin="7,0,0,0" VerticalAlignment="Center" FontWeight="Medium" />
                             </StackPanel>
                         </Button>
@@ -567,7 +567,7 @@
                     </StackPanel>
                     <Button Grid.Column="3" Style="{StaticResource SecondaryButton}" Width="98" Height="32" Padding="8,4" Click="ToggleStatusHistory_Click" ToolTip="Collapse or expand status history">
                         <StackPanel Orientation="Horizontal">
-                            <Path x:Name="StatusHistoryToggleIcon" Style="{StaticResource CircleIconPath}" Data="{StaticResource ArIconChevronDownCircle}" />
+                            <Path x:Name="StatusHistoryToggleIcon" Style="{StaticResource CircleIconPath}" Data="{StaticResource LucideCircleChevronDown}" />
                             <TextBlock x:Name="StatusHistoryToggleText" Text="Hide" Margin="6,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>

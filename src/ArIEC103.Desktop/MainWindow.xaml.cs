@@ -1704,7 +1704,7 @@ public partial class MainWindow : Window
         StatusHistoryContentRow.Height = _statusHistoryExpanded ? new GridLength(118) : new GridLength(0);
         StatusHistoryGrid.Visibility = _statusHistoryExpanded ? Visibility.Visible : Visibility.Collapsed;
         StatusHistoryToggleText.Text = _statusHistoryExpanded ? "Hide" : "Show";
-        StatusHistoryToggleIcon.Data = (Geometry)FindResource(_statusHistoryExpanded ? "ArIconChevronDownCircle" : "ArIconChevronUpCircle");
+        StatusHistoryToggleIcon.Data = (Geometry)FindResource(_statusHistoryExpanded ? "LucideCircleChevronDown" : "LucideCircleChevronUp");
     }
 
     private void UpdateBufferStatus()
