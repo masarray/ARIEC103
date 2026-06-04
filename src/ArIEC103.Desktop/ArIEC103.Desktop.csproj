@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>ArIEC103.Desktop</AssemblyName>
+    <RootNamespace>ArIEC103.Desktop</RootNamespace>
+    <Description>WPF desktop shell for ArIEC103 IEC 60870-5-103 Master Tester.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArIEC103.Core\ArIEC103.Core.csproj" />
+    <ProjectReference Include="..\ArIEC103.Master\ArIEC103.Master.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\ariec103-icon.png" />
+  </ItemGroup>
+</Project>

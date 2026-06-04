@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>ArIEC103.Cli</AssemblyName>
+    <RootNamespace>ArIEC103.Cli</RootNamespace>
+    <Description>Command line analyzer and active master runner for ArIEC103.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArIEC103.Core\ArIEC103.Core.csproj" />
+    <ProjectReference Include="..\ArIEC103.Master\ArIEC103.Master.csproj" />
+  </ItemGroup>
+</Project>

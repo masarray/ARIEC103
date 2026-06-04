@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArIEC103 - IEC 60870-5-103 Master Tester</title>
+  <meta name="description" content="ArIEC103 is an Apache-2.0 clean-room IEC 60870-5-103 active master tester and analyzer for protection relay communication, FAT/SAT evidence, and protocol transparency." />
+  <meta name="theme-color" content="#eff6ff" />
+  <meta property="og:title" content="ArIEC103 - IEC 60870-5-103 Master Tester" />
+  <meta property="og:description" content="A focused IEC-103 master tester with SCADA-correct polling, relay timestamped event log, user mapping profiles, and raw frame transparency." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="ArIEC103 home">
+        <span class="brand-mark">103</span>
+        <span>ArIEC103</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#workflow">Workflow</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+      <a class="nav-cta" href="https://github.com/masarray/ArIEC103" target="_blank" rel="noreferrer">View Repository</a>
+    </header>
+
+    <main id="top">
+      <section class="hero-card" aria-labelledby="hero-title">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow"><span></span> Apache-2.0 clean-room IEC-103 stack</p>
+          <h1 id="hero-title">Active IEC-103 master testing with readable field evidence.</h1>
+          <p class="hero-lead">ArIEC103 connects to one IEC 60870-5-103 relay slave, performs SCADA-correct polling, keeps raw frame transparency available, and translates protocol traffic into operator-friendly values, events, findings, and reports.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#workflow">Explore workflow</a>
+            <a class="button secondary" href="#evidence">See evidence model</a>
+          </div>
+          <div class="hero-metrics" aria-label="Key capabilities">
+            <div><strong>Class 2</strong><span>normal background polling</span></div>
+            <div><strong>Class 1</strong><span>ACD-driven event drain</span></div>
+            <div><strong>FUN/INF</strong><span>user-owned signal mapping</span></div>
+          </div>
+        </div>
+        <aside class="hero-glass" aria-label="Master session summary">
+          <div class="glass-header">
+            <span class="pulse"></span>
+            <strong>IEC-103 Master Session</strong>
+          </div>
+          <div class="glass-field">
+            <span class="field-icon">COM</span>
+            <div>
+              <small>Target</small>
+              <strong>Relay as IEC-103 slave</strong>
+            </div>
+          </div>
+          <div class="glass-field">
+            <span class="field-icon">GI</span>
+            <div>
+              <small>Startup</small>
+              <strong>Reset FCB + General Interrogation</strong>
+            </div>
+          </div>
+          <div class="glass-field">
+            <span class="field-icon">EV</span>
+            <div>
+              <small>Evidence</small>
+              <strong>Relay timestamped event log</strong>
+            </div>
+          </div>
+          <a class="glass-submit" href="#architecture">Open architecture</a>
+        </aside>
+        <div class="hero-tags" aria-label="Product tags">
+          <span>IEC 60870-5-103</span>
+          <span>FT1.2</span>
+          <span>Relay FAT/SAT</span>
+          <span>Raw frame trace</span>
+        </div>
+      </section>
+
+      <section class="section intro-grid" id="workflow">
+        <div class="section-copy">
+          <p class="section-kicker">Workflow</p>
+          <h2>Built around how engineers actually test relay communication.</h2>
+          <p>The primary path is active master testing: configure COM and IEC addresses, start the session, run GI and background polling, drain Class 1 only when appropriate, then export an evidence report. Offline decode remains available, but it is not the product ceiling.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="icon" aria-hidden="true">M</div>
+            <h3>Master Control</h3>
+            <p>Reset FCB, optional clock sync, General Interrogation, Class 2 polling, bounded Class 1 drain, timeout recovery, and stop-safe serial handling.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon" aria-hidden="true">V</div>
+            <h3>Value Viewer</h3>
+            <p>Shows the latest relay values using user mapping when available, while retaining raw FUN/INF evidence when a point is unmapped.</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon" aria-hidden="true">E</div>
+            <h3>Relay Event Log</h3>
+            <p>Records state changes and spontaneous relay events using the relay timestamp from IEC-103 ASDU time fields, not PC arrival time.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section architecture" id="architecture">
+        <div class="section-copy centered">
+          <p class="section-kicker">Architecture</p>
+          <h2>Focused on one real connection, deep evidence, and predictable memory use.</h2>
+          <p>The stack separates active master logic, FT1.2 decoding, user mapping, operator output, frame trace transparency, and bounded UI buffers so the tool stays responsive during high-volume polling.</p>
+        </div>
+        <div class="architecture-map" role="img" aria-label="ArIEC103 master connects to IEC-103 relay and routes protocol evidence into values, events, findings, and reports.">
+          <div class="node source">
+            <span class="node-label">Master</span>
+            <h3>ArIEC103</h3>
+            <p>Single connection active IEC-103 master tester</p>
+          </div>
+          <div class="connector"><span>FT1.2 serial</span></div>
+          <div class="node core">
+            <span class="node-label">Slave</span>
+            <h3>Protection Relay</h3>
+            <p>IEC-103 event/status/measurand source</p>
+          </div>
+          <div class="split">
+            <div class="connector"><span>Values</span></div>
+            <div class="connector"><span>Events</span></div>
+            <div class="connector"><span>Trace</span></div>
+          </div>
+          <div class="output-grid three">
+            <div class="node output">
+              <span class="node-label">Operator</span>
+              <h3>Value Viewer</h3>
+              <p>Readable state and value snapshot</p>
+            </div>
+            <div class="node output">
+              <span class="node-label">SOE</span>
+              <h3>Event Log</h3>
+              <p>State change / edge event evidence</p>
+            </div>
+            <div class="node output">
+              <span class="node-label">Expert</span>
+              <h3>Frame Trace</h3>
+              <p>Raw hex and protocol decomposition</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dark-panel" id="evidence">
+        <div>
+          <p class="section-kicker">Field truth</p>
+          <h2>Raw hex stays visible, but it is not the language of the main workflow.</h2>
+        </div>
+        <div class="truth-grid">
+          <p><strong>Operator view first.</strong> Users see signal, state, relay time, quality, source, finding, and recommended action before touching raw bytes.</p>
+          <p><strong>Protocol transparency remains.</strong> Expert users can inspect raw TX/RX frames, checksum, PRM/FCB/FCV/ACD/DFC, ASDU, COT, FUN, INF, DPI, and relay timestamp.</p>
+          <p><strong>Mapping belongs to the user.</strong> ArIEC103 does not ship fake vendor profiles. Signal names come from project-specific mapping profiles; raw FUN/INF remains the source of truth.</p>
+        </div>
+      </section>
+
+      <section class="section roadmap-panel" id="roadmap">
+        <div class="section-copy centered">
+          <p class="section-kicker">Roadmap</p>
+          <h2>From field MVP toward a refined FAT/SAT protocol test tool.</h2>
+        </div>
+        <ol class="roadmap-list">
+          <li><strong>v1.1</strong><span>Operator-first output, Frame Trace, bounded UI buffers.</span></li>
+          <li><strong>v1.2.3</strong><span>Responsive AR layout, stable Session State header, and scroll-safe tables.</span></li>
+          <li><strong>v1.3</strong><span>Mapping editor and CSV import/export for project signal lists.</span></li>
+          <li><strong>v1.4</strong><span>Scenario-based AutoTest and expected point verification.</span></li>
+          <li><strong>v1.5</strong><span>HTML/PDF evidence report and frame-linked findings.</span></li>
+        </ol>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

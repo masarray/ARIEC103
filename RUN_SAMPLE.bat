@@ -1,0 +1,22 @@
+@echo off
+setlocal
+cd /d "%~dp0"
+
+echo Building ArIEC103...
+dotnet build ArIEC103.sln
+if errorlevel 1 (
+  echo.
+  echo Build failed. Please check that .NET 8 SDK is installed.
+  pause
+  exit /b 1
+)
+
+echo.
+echo Running sample analysis...
+dotnet run --project src\ArIEC103.Cli -- samples\sample_iec103_trace.log --report out\sample-report.md --json out\sample-report.json
+
+echo.
+echo Output:
+echo   out\sample-report.md
+echo   out\sample-report.json
+pause
