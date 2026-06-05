@@ -19,20 +19,20 @@ The portable package is intended for engineers who want to run the tool without 
 From repository root:
 
 ```powershell
-pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.30
+pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.31
 ```
 
 Expected output:
 
 ```text
-artifacts/release/ArIEC103-v1.2.30-win-x64-portable.zip
+artifacts/release/ArIEC103-v1.2.31-win-x64-portable.zip
 artifacts/release/SHA256SUMS.txt
 ```
 
 Verify package structure:
 
 ```powershell
-pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.30-win-x64-portable.zip
+pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.31-win-x64-portable.zip
 ```
 
 ## GitHub Actions package flow
@@ -43,22 +43,32 @@ The workflow below creates the same portable ZIP and checksum:
 .github/workflows/release-package.yml
 ```
 
-Manual run:
+Manual release run:
 
 1. Open **Actions**.
 2. Select **Build Windows portable package**.
-3. Run workflow.
-4. Download the artifact.
-5. Test it on a clean Windows machine.
+3. Click **Run workflow**.
+4. Set `version`, for example `1.2.31`.
+5. Keep **Create or update GitHub Release** enabled.
+6. Leave `release_notes_file` empty unless you want to force a specific notes file.
+7. Keep **Pre-release** enabled until the relay validation matrix is strong enough for a stable release.
+8. Click **Run workflow**.
 
-Tag release run:
+The workflow will build the portable ZIP, verify the package structure, upload a workflow artifact, create tag `vX.Y.Z` when needed, and publish these assets to GitHub Releases:
 
-```bash
-git tag v1.2.30
-git push origin v1.2.30
+```text
+ArIEC103-vX.Y.Z-win-x64-portable.zip
+SHA256SUMS.txt
 ```
 
-For tag builds, the workflow uploads the portable ZIP and checksum to the GitHub release.
+Tag release run is still supported for maintainers who prefer CLI release control:
+
+```bash
+git tag v1.2.31
+git push origin v1.2.31
+```
+
+Both manual runs and tag builds can publish the portable ZIP and checksum to the GitHub release.
 
 ## Release checklist
 

@@ -7,8 +7,27 @@ on:
     inputs:
       version:
         description: 'Release version without leading v'
+        required: true
+        default: '1.2.31'
+      publish_release:
+        description: 'Create or update GitHub Release after the package is built'
+        type: boolean
+        required: true
+        default: true
+      prerelease:
+        description: 'Mark the GitHub Release as pre-release'
+        type: boolean
+        required: true
+        default: true
+      draft:
+        description: 'Create the GitHub Release as draft'
+        type: boolean
+        required: true
+        default: false
+      release_notes_file:
+        description: 'Release notes markdown file. Leave empty to auto-use docs/RELEASE_NOTES_vX.Y.Z.md'
         required: false
-        default: '1.2.30'
+        default: ''
   push:
     tags:
       - 'v*'
@@ -28,48 +47,98 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Resolve version
-        id: version
+      - name: Resolve release inputs
+        id: release
         shell: pwsh
         run: |
           if ('${{ github.event_name }}' -eq 'workflow_dispatch') {
-            $version = '${{ github.event.inputs.version }}'
+            $version = '${{ github.event.inputs.version }}'.Trim()
+            if ($version.StartsWith('v')) { $version = $version.Substring(1) }
+            $publishRelease = '${{ github.event.inputs.publish_release }}'
+            $preRelease = '${{ github.event.inputs.prerelease }}'
+            $draft = '${{ github.event.inputs.draft }}'
+            $notesFile = '${{ github.event.inputs.release_notes_file }}'.Trim()
           } else {
             $version = '${{ github.ref_name }}'.TrimStart('v')
+            $publishRelease = 'true'
+            $preRelease = 'true'
+            $draft = 'false'
+            $notesFile = "docs/RELEASE_NOTES_v$version.md"
           }
+
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            throw 'Release version cannot be empty.'
+          }
+
+          if ([string]::IsNullOrWhiteSpace($notesFile)) {
+            $notesFile = "docs/RELEASE_NOTES_v$version.md"
+          }
+
+          $tag = "v$version"
           "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          Write-Host "Packaging version $version"
+          "tag=$tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "publish_release=$publishRelease" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "prerelease=$preRelease" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "draft=$draft" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "notes_file=$notesFile" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+          Write-Host "Packaging version : $version"
+          Write-Host "Release tag       : $tag"
+          Write-Host "Publish release   : $publishRelease"
+          Write-Host "Pre-release       : $preRelease"
+          Write-Host "Draft             : $draft"
+          Write-Host "Release notes     : $notesFile"
 
       - name: Build portable package
         shell: pwsh
-        run: ./scripts/publish-windows-portable.ps1 -Version '${{ steps.version.outputs.version }}'
+        run: ./scripts/publish-windows-portable.ps1 -Version '${{ steps.release.outputs.version }}'
 
       - name: Verify portable package structure
         shell: pwsh
-        run: ./scripts/verify-release-package.ps1 -PackagePath "artifacts/release/ArIEC103-v${{ steps.version.outputs.version }}-win-x64-portable.zip"
+        run: ./scripts/verify-release-package.ps1 -PackagePath "artifacts/release/ArIEC103-v${{ steps.release.outputs.version }}-win-x64-portable.zip"
 
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ArIEC103-v${{ steps.version.outputs.version }}-win-x64-portable
+          name: ArIEC103-v${{ steps.release.outputs.version }}-win-x64-portable
           path: |
-            artifacts/release/ArIEC103-v${{ steps.version.outputs.version }}-win-x64-portable.zip
+            artifacts/release/ArIEC103-v${{ steps.release.outputs.version }}-win-x64-portable.zip
             artifacts/release/SHA256SUMS.txt
 
-      - name: Publish GitHub release assets for tag builds
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Create or update GitHub Release
+        if: steps.release.outputs.publish_release == 'true'
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $tag = '${{ github.ref_name }}'
-          $zip = "artifacts/release/ArIEC103-v${{ steps.version.outputs.version }}-win-x64-portable.zip"
+          $tag = '${{ steps.release.outputs.tag }}'
+          $version = '${{ steps.release.outputs.version }}'
+          $zip = "artifacts/release/ArIEC103-v$version-win-x64-portable.zip"
           $sha = "artifacts/release/SHA256SUMS.txt"
-          $notes = "docs/RELEASE_NOTES_v1.2.30.md"
-          if (-not (Test-Path $notes)) { $notes = "docs/RELEASE_PACKAGING.md" }
+          $notes = '${{ steps.release.outputs.notes_file }}'
+          $target = '${{ github.sha }}'
+
+          if (-not (Test-Path $notes)) {
+            $fallback = "docs/RELEASE_NOTES_v$version.md"
+            if (Test-Path $fallback) {
+              $notes = $fallback
+            } elseif (Test-Path "docs/RELEASE_PACKAGING.md") {
+              $notes = "docs/RELEASE_PACKAGING.md"
+            } else {
+              throw "Release notes file not found: $notes"
+            }
+          }
+
+          $title = "ArIEC103 $tag"
+          $releaseFlags = @()
+          if ('${{ steps.release.outputs.prerelease }}' -eq 'true') { $releaseFlags += '--prerelease' }
+          if ('${{ steps.release.outputs.draft }}' -eq 'true') { $releaseFlags += '--draft' }
+
           gh release view $tag *> $null
           if ($LASTEXITCODE -ne 0) {
-            gh release create $tag $zip $sha --title "ArIEC103 $tag" --notes-file $notes --prerelease
+            Write-Host "Creating GitHub Release $tag from workflow commit $target"
+            gh release create $tag $zip $sha --title $title --notes-file $notes --target $target @releaseFlags
           } else {
+            Write-Host "GitHub Release $tag already exists. Uploading assets with --clobber."
             gh release upload $tag $zip $sha --clobber
           }

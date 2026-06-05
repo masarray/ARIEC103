@@ -329,11 +329,12 @@
           <h2>Portable Windows packaging for easier field trials.</h2>
           <p>
             The repository now includes a release packaging workflow that builds a
-            Windows portable ZIP, creates a SHA256 checksum, and keeps the release
-            path repeatable from local PowerShell or GitHub Actions.
+            Windows portable ZIP, creates a SHA256 checksum, and can publish the
+            package directly to GitHub Releases from a manual Actions run.
           </p>
         </div>
         <div class="report-list reveal delay-1" aria-label="Release packaging outputs">
+          <div class="interactive-surface"><strong>Manual release</strong><span>Run the package workflow from GitHub Actions, set the version, and publish the release without local tag commands.</span></div>
           <div class="interactive-surface"><strong>Portable ZIP</strong><span>Desktop app, CLI tools, quick-start docs, samples, and legal files are packaged together.</span></div>
           <div class="interactive-surface"><strong>Checksum</strong><span>SHA256SUMS.txt is generated so downloaded assets can be verified.</span></div>
           <div class="interactive-surface"><strong>Validation matrix</strong><span>docs/VALIDATION_MATRIX.md records simulator and relay validation before stable release claims.</span></div>

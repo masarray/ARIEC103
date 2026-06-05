@@ -11,7 +11,7 @@
 
 It connects to one IEC-103 slave relay, runs a controlled master session, decodes relay responses, keeps raw TX/RX evidence available, and presents the result as readable engineering output for FAT, SAT, commissioning, and troubleshooting.
 
-> Current public release package: **v1.2.30 — release packaging hardening, portable Windows ZIP workflow, quick-start/troubleshooting docs, validation matrix, and status badges**
+> Current public release package: **v1.2.31 — manual GitHub Release publishing, portable Windows ZIP workflow, quick-start/troubleshooting docs, validation matrix, and status badges**
 
 ## Who this tool is for
 
@@ -168,23 +168,23 @@ dotnet run --project tests/ArIEC103.Protocol.Tests
 Create a Windows x64 portable package:
 
 ```powershell
-pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.30
+pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.31
 ```
 
 Expected output:
 
 ```text
-artifacts/release/ArIEC103-v1.2.30-win-x64-portable.zip
+artifacts/release/ArIEC103-v1.2.31-win-x64-portable.zip
 artifacts/release/SHA256SUMS.txt
 ```
 
 Verify the package structure:
 
 ```powershell
-pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.30-win-x64-portable.zip
+pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.31-win-x64-portable.zip
 ```
 
-GitHub Actions also provides a **Build Windows portable package** workflow for release artifacts.
+GitHub Actions also provides a **Build Windows portable package** workflow. From the Actions tab, run the workflow manually, set the version, keep **Create or update GitHub Release** enabled, and the workflow will build the portable ZIP, generate `SHA256SUMS.txt`, and publish both files to GitHub Releases.
 
 Useful operator documents:
 
