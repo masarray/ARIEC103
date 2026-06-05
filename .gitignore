@@ -20,6 +20,9 @@
 !/Directory.Build.props
 !/Directory.Packages.props
 !/ArIEC103.sln
+!/index.html
+!/404.html
+!/.nojekyll
 !/RUN_SAMPLE.bat
 !/ANALYZE_LOG.bat
 !/RUN_MASTER_SAMPLE.bat
@@ -27,8 +30,9 @@
 !/RUN_DEMO_MASTER.bat
 !/RUN_SLAVE_SIMULATOR.bat
 
-# Source code and tests
+# Source code, scripts, and tests
 !/src/**
+!/scripts/**
 !/tests/**
 
 # Documentation and static landing page

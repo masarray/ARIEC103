@@ -2,6 +2,7 @@
 
 [![Build](https://github.com/masarray/ARIEC103/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/masarray/ARIEC103/actions/workflows/ci.yml)
 [![Pages](https://github.com/masarray/ARIEC103/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/masarray/ARIEC103/actions/workflows/pages.yml)
+[![Package](https://github.com/masarray/ARIEC103/actions/workflows/release-package.yml/badge.svg)](https://github.com/masarray/ARIEC103/actions/workflows/release-package.yml)
 [![Release](https://img.shields.io/github/v/release/masarray/ARIEC103?include_prereleases&label=release)](https://github.com/masarray/ARIEC103/releases)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%20desktop-0078D4.svg)](#windows-desktop-tester)
@@ -10,7 +11,7 @@
 
 It connects to one IEC-103 slave relay, runs a controlled master session, decodes relay responses, keeps raw TX/RX evidence available, and presents the result as readable engineering output for FAT, SAT, commissioning, and troubleshooting.
 
-> Current public release package: **v1.2.29 — protocol retry safety, evidence privacy, CI smoke tests, GitHub Pages hardening, and public status badges**
+> Current public release package: **v1.2.30 — release packaging hardening, portable Windows ZIP workflow, quick-start/troubleshooting docs, validation matrix, and status badges**
 
 ## Who this tool is for
 
@@ -52,17 +53,18 @@ Readable project signal names come from your own JSON mapping profile. This avoi
 
 ## How to use the desktop app
 
-1. Download the Windows release package from GitHub Releases.
-2. Open **ArIEC103.Desktop**.
-3. Click **Setup**.
-4. Select the COM port and serial settings used by the relay.
-5. Set the relay **Link Address** and **Common Address**.
-6. Keep **Reset FCB** enabled for normal startup synchronization.
-7. Enable **General Interrogation** when you want a startup snapshot.
-8. Load a mapping profile when you want readable signal names.
-9. Click **Start**.
-10. Review **Operator Evidence**, **Value Viewer**, **Relay Event Log**, and **Diagnostics**.
-11. Export Markdown evidence when you need a reviewable test record.
+1. Download the Windows portable package from GitHub Releases.
+2. Extract the ZIP to a local folder.
+3. Run `Start-ArIEC103.bat`.
+4. Click **Setup**.
+5. Select the COM port and serial settings used by the relay.
+6. Set the relay **Link Address** and **Common Address**.
+7. Keep **Reset FCB** enabled for normal startup synchronization.
+8. Enable **General Interrogation** when you want a startup snapshot.
+9. Load a mapping profile when you want readable signal names.
+10. Click **Start**.
+11. Review **Operator Evidence**, **Value Viewer**, **Relay Event Log**, and **Diagnostics**.
+12. Export Markdown evidence when you need a reviewable test record.
 
 ## Master polling behavior
 
@@ -161,6 +163,36 @@ Run protocol smoke tests:
 dotnet run --project tests/ArIEC103.Protocol.Tests
 ```
 
+## Release package
+
+Create a Windows x64 portable package:
+
+```powershell
+pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.30
+```
+
+Expected output:
+
+```text
+artifacts/release/ArIEC103-v1.2.30-win-x64-portable.zip
+artifacts/release/SHA256SUMS.txt
+```
+
+Verify the package structure:
+
+```powershell
+pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.30-win-x64-portable.zip
+```
+
+GitHub Actions also provides a **Build Windows portable package** workflow for release artifacts.
+
+Useful operator documents:
+
+- `docs/QUICK_START.md`
+- `docs/TROUBLESHOOTING.md`
+- `docs/VALIDATION_MATRIX.md`
+- `docs/RELEASE_PACKAGING.md`
+
 ## User mapping profile
 
 Example:
@@ -224,7 +256,7 @@ It is not a vendor-specific tester, not a multi-protocol SCADA gateway, and not 
 
 ArIEC103 should move from public beta to field-trusted release in this order:
 
-1. **Release hardening** — keep CI green, publish a Windows portable package, add checksums, and keep README / landing page status visible.
+1. **Release hardening** — keep CI green, publish a Windows portable package, add checksums, and keep README / landing page status visible. Initial packaging workflow is now included.
 2. **Field validation** — build a relay/simulator validation matrix, add sanitized IEC-103 capture test vectors, and expand ASDU decoder coverage.
 3. **Operator workflow** — add profile save/load, serial health diagnostics, and a guided test checklist for first-time users.
 4. **FAT evidence** — add one-click formatted PDF report with session metadata, findings, raw evidence appendix, and pass/fail summary.

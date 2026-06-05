@@ -1,10 +1,12 @@
 # ArIEC103 Roadmap
 
-ArIEC103 is currently positioned as a public beta / release candidate for IEC 60870-5-103 master testing and relay communication evidence. The next work should prioritize trust, validation, and repeatable field workflow instead of adding random features.
+ArIEC103 is currently positioned as a public beta / release candidate for IEC 60870-5-103 master testing and relay communication evidence. The v1.2.30 track adds release packaging, checksum, quick-start, troubleshooting, and validation-matrix groundwork. The next work should prioritize field validation and repeatable operator workflow instead of adding random features.
 
 ## Phase 1 — Release hardening
 
 Goal: make the public repository look credible, easy to verify, and safe to download.
+
+Status: initial implementation included in v1.2.30.
 
 - Keep GitHub Actions CI green on every push.
 - Keep GitHub Pages deploy status visible.
@@ -12,6 +14,7 @@ Goal: make the public repository look credible, easy to verify, and safe to down
 - Add SHA256 checksums for release artifacts.
 - Keep README badges and release notes current.
 - Keep public reports free from local workstation paths and customer project folders.
+- Verify the generated portable ZIP on a clean Windows machine before public release.
 
 ## Phase 2 — Field validation
 

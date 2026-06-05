@@ -226,7 +226,14 @@ When changing behavior, update at least one of:
 - `docs/ROADMAP.md`
 - `docs/OUTPUT_AND_PERFORMANCE_POLICY.md`
 - `docs/RESPONSIVE_LAYOUT_POLICY.md`
+- `docs/RELEASE_PACKAGING.md` when changing release scripts or GitHub release assets
+- `docs/VALIDATION_MATRIX.md` when adding relay/simulator validation evidence
 - release notes for the new version
+
+
+## Release Packaging Rule
+
+Release assets must be reproducible. When changing project output, update `scripts/publish-windows-portable.ps1`, `scripts/verify-release-package.ps1`, `.github/workflows/release-package.yml`, and `docs/RELEASE_PACKAGING.md` when needed. Do not publish only source ZIPs for user-facing releases; provide a Windows portable package and checksum.
 
 ## Future Coding Priorities
 

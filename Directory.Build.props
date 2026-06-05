@@ -8,10 +8,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AnalysisLevel>latest</AnalysisLevel>
 
-    <Version>1.2.29</Version>
-    <AssemblyVersion>1.2.29.0</AssemblyVersion>
-    <FileVersion>1.2.29.0</FileVersion>
-    <InformationalVersion>1.2.29-readme-landing-badges</InformationalVersion>
+    <Version>1.2.30</Version>
+    <AssemblyVersion>1.2.30.0</AssemblyVersion>
+    <FileVersion>1.2.30.0</FileVersion>
+    <InformationalVersion>1.2.30-release-packaging-hardening</InformationalVersion>
     <Authors>Ari Sulistiono</Authors>
     <Company>Ari Sulistiono</Company>
     <Product>ArIEC103</Product>

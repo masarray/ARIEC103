@@ -91,6 +91,7 @@
         <a href="#polling">Polling</a>
         <a href="#evidence">Evidence</a>
         <a href="#how-to-use">How to use</a>
+        <a href="#release">Release</a>
         <a href="#benefits">Benefits</a>
       </nav>
     </header>
@@ -122,6 +123,9 @@
             </a>
             <a href="https://github.com/masarray/ARIEC103/actions/workflows/pages.yml" aria-label="GitHub Pages deployment status">
               <img src="https://github.com/masarray/ARIEC103/actions/workflows/pages.yml/badge.svg?branch=main" alt="Pages deployment status" />
+            </a>
+            <a href="https://github.com/masarray/ARIEC103/actions/workflows/release-package.yml" aria-label="Windows package build status">
+              <img src="https://github.com/masarray/ARIEC103/actions/workflows/release-package.yml/badge.svg" alt="Windows package build status" />
             </a>
             <a href="https://github.com/masarray/ARIEC103/releases" aria-label="Latest release">
               <img src="https://img.shields.io/github/v/release/masarray/ARIEC103?include_prereleases&amp;label=release" alt="Latest release" />
@@ -305,16 +309,35 @@
           <p class="eyebrow">How to use</p>
           <h2>Start from setup, then read the evidence layer by layer.</h2>
           <p>
-            The workflow is designed for engineers at a test bench: configure the
-            serial link, start the master session, check communication health, review
-            decoded values/events, then export evidence when the result is clear.
+            The workflow is designed for engineers at a test bench: download the
+            Windows portable package, configure the serial link, start the master
+            session, check communication health, review decoded values/events, then
+            export evidence when the result is clear.
           </p>
         </div>
         <div class="report-list reveal delay-1" aria-label="Usage workflow">
-          <div class="interactive-surface"><strong>1. Configure</strong><span>Select COM port, baudrate, link address, common address, timeout, GI, and optional mapping profile.</span></div>
-          <div class="interactive-surface"><strong>2. Start</strong><span>Run the active master session and watch Operator Evidence for startup, GI, polling, event drain, and diagnostics.</span></div>
-          <div class="interactive-surface"><strong>3. Verify</strong><span>Use Value Viewer for current status and Relay Event Log for relay-timestamped changes.</span></div>
+          <div class="interactive-surface"><strong>1. Download</strong><span>Get the Windows portable ZIP from GitHub Releases and start the app using Start-ArIEC103.bat.</span></div>
+          <div class="interactive-surface"><strong>2. Configure</strong><span>Select COM port, baudrate, link address, common address, timeout, GI, and optional mapping profile.</span></div>
+          <div class="interactive-surface"><strong>3. Start & verify</strong><span>Watch Operator Evidence, Value Viewer, Relay Event Log, Frame Trace, and Diagnostics.</span></div>
           <div class="interactive-surface"><strong>4. Export</strong><span>Export Markdown or selected grid evidence for FAT/SAT records, troubleshooting notes, or handover.</span></div>
+        </div>
+      </section>
+
+      <section class="section split" id="release">
+        <div class="reveal">
+          <p class="eyebrow">Release package</p>
+          <h2>Portable Windows packaging for easier field trials.</h2>
+          <p>
+            The repository now includes a release packaging workflow that builds a
+            Windows portable ZIP, creates a SHA256 checksum, and keeps the release
+            path repeatable from local PowerShell or GitHub Actions.
+          </p>
+        </div>
+        <div class="report-list reveal delay-1" aria-label="Release packaging outputs">
+          <div class="interactive-surface"><strong>Portable ZIP</strong><span>Desktop app, CLI tools, quick-start docs, samples, and legal files are packaged together.</span></div>
+          <div class="interactive-surface"><strong>Checksum</strong><span>SHA256SUMS.txt is generated so downloaded assets can be verified.</span></div>
+          <div class="interactive-surface"><strong>Validation matrix</strong><span>docs/VALIDATION_MATRIX.md records simulator and relay validation before stable release claims.</span></div>
+          <div class="interactive-surface"><strong>Troubleshooting guide</strong><span>Practical checks for no response, checksum errors, malformed frames, GI issues, and mapping gaps.</span></div>
         </div>
       </section>
 
@@ -343,7 +366,7 @@
             <p class="eyebrow">Windows release</p>
             <h2>Download, connect, and start a focused IEC-103 test session.</h2>
             <p>
-              Use the release package for a Windows test bench, then configure the
+              Use the Windows portable package for a test bench, then configure the
               relay connection, run the master session, inspect values and events,
               and export the evidence your team needs.
             </p>
