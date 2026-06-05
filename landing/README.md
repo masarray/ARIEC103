@@ -2,7 +2,9 @@
 
 Static landing page for GitHub Pages.
 
-No build step is required. The page is intentionally dependency-free: plain HTML and CSS only.
+No build step is required. The page is intentionally dependency-free: plain HTML, CSS, and a small progressive-enhancement script.
+
+Source screenshots live in `screenshot/`. Optimized WebP assets used by the page live in `assets/screenshots/` for faster loading.
 
 Recommended GitHub Pages source:
 

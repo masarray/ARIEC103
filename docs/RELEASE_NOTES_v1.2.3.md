@@ -4,9 +4,9 @@
 
 - Fixed the top `SESSION STATE` area visually jittering during polling. The header now shows stable session phase only, while fast protocol state remains in Operator Evidence / Frame Trace.
 - Prevented long status messages from resizing the header by using fixed-height, trimmed status fields.
-- Reduced workspace margins and sidebar width to better match the ARServer layout identity.
+- Reduced workspace margins and sidebar width to better match the mature engineering layout identity.
 - Added explicit horizontal and vertical scrolling on large DataGrid views.
-- Tightened TabControl, cards, typography, and DataGrid row hover behavior toward the AR handmade software style.
+- Tightened TabControl, cards, typography, and DataGrid row hover behavior toward the mature engineering software style.
 
 ## Product direction preserved
 

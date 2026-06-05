@@ -1,6 +1,6 @@
 # Responsive Layout Policy
 
-ArIEC103 desktop UI must feel like the same AR handmade software family as ARServer: compact, calm, mature, workspace-first, and readable under real polling load.
+ArIEC103 desktop UI must feel like the same mature engineering software family as the desktop product direction: compact, calm, mature, workspace-first, and readable under real polling load.
 
 ## Layout principles
 
@@ -48,7 +48,7 @@ Layout and rendering must not become the bottleneck during polling:
 - Stabilized top Session State card with fixed height and trimmed text.
 - Stopped per-frame header state mutation.
 - Added explicit scrollbars to all main DataGrids.
-- Tightened ARServer-like card, tab, row hover, and typography styling.
+- Tightened mature engineering product-style card, tab, row hover, and typography styling.
 
 ## v1.2.24 cockpit polish and interaction audit
 
@@ -58,12 +58,12 @@ Layout and rendering must not become the bottleneck during polling:
 - Rail controls should keep icon + caption affordance, safe hover margins, and restrained shadows. Avoid scale-heavy hover animations that make polling views feel laggy.
 - Typography remains Aptos-only with ClearType rendering and normal weight by default.
 
-## v1.2.25 ARServer theme and custom icon port
+## v1.2.25 product UI theme and custom icon port
 
-- WPF shell should use the ARServer font stack: `Aptos, Segoe UI Variable Text, Segoe UI, Calibri`, with Aptos as the primary face.
-- Primary accent follows the ARServer blue family (`#2563EB` / `#1D4ED8`) for navigation pills and primary actions.
-- Rail icons should be original WPF `Geometry` resources, not emoji text or dependency-heavy icon packs.
-- Custom protocol icon resources stay in a separate dictionary so command rail icons can be reused without adding runtime packages.
+- WPF shell should use the desktop product font stack: `Aptos, Segoe UI Variable Text, Segoe UI, Calibri`, with Aptos as the primary face.
+- Primary accent follows the approved blue accent family (`#2563EB` / `#1D4ED8`) for navigation pills and primary actions.
+- Rail icons may use local WPF `Geometry` resources derived from Lucide-style outline icons, provided attribution remains in `NOTICE` and `THIRD_PARTY_NOTICES.md`.
+- Do not replace the approved command rail icon set with heavier, custom, or visually noisy geometry unless the full command rail is re-audited.
 
 ## v1.2.26 command toggle, status history, and scrollbar usability
 
@@ -75,7 +75,7 @@ Layout and rendering must not become the bottleneck during polling:
 - Left command rail spans the full shell height and must not be shortened by the bottom status history panel.
 - Status history should be a compact read-only grid with time/status/detail columns, not a plain text wall.
 - Connect and Disconnect remain separate rail buttons with interlocked enabled states; do not hide one in a way that shifts command layout.
-- The app logo should use the local IEC-60870 image asset, packaged as a WPF resource, instead of text-only branding in the rail header.
+- The app logo should use the approved stacked `IEC / 103` local image asset, packaged as a WPF resource, instead of text-only branding in the rail header.
 
 
 ## v1.2.5 layout/diagnostics note

@@ -3,14 +3,14 @@
 ## Current: v1.2.3 Responsive AR Layout
 
 - Stable top Session State header.
-- ARServer-aligned workspace layout.
+- product-aligned workspace layout.
 - DataGrid scrolling/virtualization maintained for high-volume polling.
 - Raw frame trace remains advanced transparency layer, not the main user workflow.
 
 
 ## Current v1.2.2
 
-ArIEC103 now includes stop-safe desktop session control, ARServer-aligned WPF styling, operator-first output, advanced Frame Trace, Value Viewer snapshot, relay timestamp Event Log, user mapping profile, WPF AutoTest Assessment tab, queued/batched UI rendering, bounded retained evidence, Markdown assessment report, documented IEC-103 slave simulator strategy, and a diagnostics pipeline. v1.2.2 fixes the WPF `CharacterSpacing` compile issue and prevents normal serial no-data waits from surfacing as unhandled `System.TimeoutException`; recoverable exceptions now become selectable/copyable Diagnostics rows.
+ArIEC103 now includes stop-safe desktop session control, product-aligned WPF styling, operator-first output, advanced Frame Trace, Value Viewer snapshot, relay timestamp Event Log, user mapping profile, WPF AutoTest Assessment tab, queued/batched UI rendering, bounded retained evidence, Markdown assessment report, documented IEC-103 slave simulator strategy, and a diagnostics pipeline. v1.2.2 fixes the WPF `CharacterSpacing` compile issue and prevents normal serial no-data waits from surfacing as unhandled `System.TimeoutException`; recoverable exceptions now become selectable/copyable Diagnostics rows.
 
 
 ## v0.9 — Product Architecture and Agent Governance
@@ -57,8 +57,8 @@ Required:
 - fix Start/Stop toggle after stop request
 - close active transport to release blocking serial reads/writes
 - add timeout-aware SerialPort.Read path
-- align WPF theme with ARServer visual identity
-- align landing page with ARServer product identity
+- align WPF theme with mature engineering product visual identity
+- align landing page with mature engineering product identity
 
 ## v1.3 Standalone IEC-103 Slave Simulator
 

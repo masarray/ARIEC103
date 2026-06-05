@@ -9,9 +9,9 @@
 
 ## Improved
 
-- WPF theme aligned with the ARServer handmade software identity.
+- WPF theme aligned with the mature engineering software identity.
 - Cards, buttons, segmented tabs, DataGrid rows, focus behavior, and scrollbars were refreshed for a cleaner engineering cockpit.
-- Landing page redesigned with ARServer-style hero, glass session panel, architecture map, field-truth section, and restrained typography.
+- Landing page redesigned with modern engineering cockpit-style hero, glass session panel, architecture map, field-truth section, and restrained typography.
 
 ## Product Rules Preserved
 

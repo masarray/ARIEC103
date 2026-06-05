@@ -11,7 +11,7 @@ It connects to protection relays / IEDs acting as IEC-103 slaves, runs SCADA-cor
 ArIEC103 is **not**:
 
 - a passive decoder only
-- a SIPROTEC-only tester
+- a vendor-specific relay tester
 - a generic fake profile generator
 - a dual-redundancy IEC-101 clone
 - a wrapper around lib60870, Open103, Wireshark, or any commercial/GPL protocol stack
@@ -148,13 +148,13 @@ Allowed:
 
 Forbidden:
 
-- `SIPROTEC basic profile` unless the user supplies validated data and asks for that profile
+- `vendor-specific basic profile` unless the user supplies validated data and asks for that profile
 - guessed FUN/INF labels as final truth
 - hiding raw FUN/INF behind friendly names
 
 ## UI Direction
 
-Desktop UI should feel like a serious engineering cockpit with the same AR handmade software identity used by ARServer:
+Desktop UI should feel like a serious engineering cockpit with the same mature engineering product identity used by the desktop tool:
 
 - clean, modern, calm, professional
 - soft white cards, restrained blue accent, slim scrollbars, segmented tabs, modern DataGrid rows

@@ -2,7 +2,7 @@
 
 ## Visual direction
 
-This release tightens the WPF desktop UI to better match the AR handmade software identity:
+This release tightens the WPF desktop UI to better match the mature engineering software identity:
 
 - smaller, calmer header typography;
 - lighter font weights instead of heavy semi-bold UI text;

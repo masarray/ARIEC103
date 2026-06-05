@@ -1,10 +1,11 @@
+<!-- Copyright 2026 Ari Sulistiono -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>ArIEC103.Master</AssemblyName>
     <RootNamespace>ArIEC103.Master</RootNamespace>
     <Description>Clean-room IEC 60870-5-103 active master tester engine with evidence reporting.</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArIEC103.Core\ArIEC103.Core.csproj" />

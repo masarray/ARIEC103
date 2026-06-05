@@ -84,14 +84,14 @@ Good:
 
 ```text
 ProjectA_Bay01_IEC103.profile.json
-PLN_Feeder07_Validated.profile.json
+Project_Feeder07_Validated.profile.json
 ```
 
 Avoid:
 
 ```text
-SIPROTEC.profile.json
-ABB.profile.json
+RelayVendorX.profile.json
+SpecificVendor.profile.json
 GenericVendorTruth.profile.json
 ```
 

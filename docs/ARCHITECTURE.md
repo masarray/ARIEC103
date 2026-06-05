@@ -229,7 +229,7 @@ This prevents the UI from becoming an unbounded append-only frame renderer durin
 
 The desktop app now treats stop/cancel as a first-class runtime workflow. A user stop request cancels the active session and asks the active transport to close, which releases blocking serial read/write operations on typical USB/RS485 adapters. The UI restores Start/Stop state in the session finalizer and keeps a force-close path available while shutdown is in progress.
 
-The WPF skin is aligned with the ARServer handmade software identity: soft white cards, restrained blue accent, segmented tabs, modern data grids, slim scrollbars, and operator-first evidence panels. This visual layer must not own protocol state; it remains a cockpit over `ArIEC103.Master`.
+The WPF skin is aligned with the mature engineering software identity: soft white cards, restrained blue accent, segmented tabs, modern data grids, slim scrollbars, and operator-first evidence panels. This visual layer must not own protocol state; it remains a cockpit over `ArIEC103.Master`.
 
 ## Diagnostics pipeline note
 

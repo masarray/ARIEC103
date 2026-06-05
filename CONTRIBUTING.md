@@ -8,7 +8,7 @@ ArIEC103 is intended to remain legally clean, auditable, and safe for corporate 
 - Do not port internal class structures, parser logic, state machines, or test suites from third-party protocol libraries.
 - Use independently written code, public protocol behavior, legally shareable traces, and self-generated test vectors.
 - Do not upload real customer, vendor, utility, or project captures unless they are fully sanitized and legally shareable.
-- Keep all dependencies documented in `THIRD_PARTY_NOTICES.md`.
+- Keep all dependencies and third-party notices documented in `THIRD_PARTY_NOTICES.md`.
 
 ## What belongs in GitHub
 
@@ -18,15 +18,24 @@ Commit only:
 - static landing page files under `landing/`
 - documentation under `docs/`
 - sanitized samples under `samples/`
-- legal/config files such as `LICENSE`, `NOTICE`, `.gitignore`, `.gitattributes`, and `.editorconfig`
+- GitHub workflows/templates under `.github/`
+- legal/config files such as `LICENSE`, `NOTICE`, `.gitignore`, `.gitattributes`, `.editorconfig`, and `THIRD_PARTY_NOTICES.md`
 
 Do not commit:
 
 - `bin/`, `obj/`, `dist/`, `out/`, `node_modules/`
-- generated reports
-- real field logs or confidential traces
-- PDFs, MSG files, PCAP files, spreadsheets, installers, ZIP packages, or exported binaries
+- generated reports, installers, ZIP files, or compiled binaries
+- real field logs, private relay captures, or confidential project traces
+- PDFs, MSG files, PCAP files, spreadsheets, or customer documents
 - secrets, tokens, environment files, or production appsettings
+
+## Code quality expectations
+
+- Keep protocol logic out of WPF. The desktop app is a shell over `ArIEC103.Master` and `ArIEC103.Core`.
+- Keep UI collections bounded and render through batched updates for high-volume polling.
+- Preserve raw frame evidence even when adding friendlier operator wording.
+- Do not introduce vendor-specific final signal names unless they come from a user-supplied mapping profile.
+- Add or preserve SPDX license identifiers in source files where the format supports comments.
 
 ## License
 
