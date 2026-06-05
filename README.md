@@ -1,10 +1,16 @@
 # ArIEC103
 
+[![Build](https://github.com/masarray/ARIEC103/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/masarray/ARIEC103/actions/workflows/ci.yml)
+[![Pages](https://github.com/masarray/ARIEC103/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/masarray/ARIEC103/actions/workflows/pages.yml)
+[![Release](https://img.shields.io/github/v/release/masarray/ARIEC103?include_prereleases&label=release)](https://github.com/masarray/ARIEC103/releases)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20desktop-0078D4.svg)](#windows-desktop-tester)
+
 **ArIEC103** is an Apache-2.0 IEC 60870-5-103 active master tester and analyzer for protection relay communication checks.
 
 It connects to one IEC-103 slave relay, runs a controlled master session, decodes relay responses, keeps raw TX/RX evidence available, and presents the result as readable engineering output for FAT, SAT, commissioning, and troubleshooting.
 
-> Current public release package: **v1.2.27 — protocol retry safety, evidence privacy, CI smoke tests, and user-facing documentation refresh**
+> Current public release package: **v1.2.29 — protocol retry safety, evidence privacy, CI smoke tests, GitHub Pages hardening, and public status badges**
 
 ## Who this tool is for
 
@@ -213,6 +219,18 @@ ArIEC103 is intentionally focused:
 - no built-in vendor-specific signal database
 
 It is not a vendor-specific tester, not a multi-protocol SCADA gateway, and not a replacement for formal site acceptance procedures.
+
+## Next hardening roadmap
+
+ArIEC103 should move from public beta to field-trusted release in this order:
+
+1. **Release hardening** — keep CI green, publish a Windows portable package, add checksums, and keep README / landing page status visible.
+2. **Field validation** — build a relay/simulator validation matrix, add sanitized IEC-103 capture test vectors, and expand ASDU decoder coverage.
+3. **Operator workflow** — add profile save/load, serial health diagnostics, and a guided test checklist for first-time users.
+4. **FAT evidence** — add one-click formatted PDF report with session metadata, findings, raw evidence appendix, and pass/fail summary.
+5. **Analyzer maturity** — add capture replay, compare sessions, stronger filters, and safer long-duration test handling.
+
+See `docs/ROADMAP.md` for the detailed staged plan.
 
 ## Repository hygiene
 

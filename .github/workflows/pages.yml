@@ -7,6 +7,7 @@ on:
     branches: [ main, master ]
     paths:
       - 'landing/**'
+      - 'docs/**'
       - 'index.html'
       - '404.html'
       - '.nojekyll'
