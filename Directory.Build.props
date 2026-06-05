@@ -8,10 +8,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AnalysisLevel>latest</AnalysisLevel>
 
-    <Version>1.2.26</Version>
-    <AssemblyVersion>1.2.26.0</AssemblyVersion>
-    <FileVersion>1.2.26.0</FileVersion>
-    <InformationalVersion>1.2.26-public-release-hygiene</InformationalVersion>
+    <Version>1.2.27</Version>
+    <AssemblyVersion>1.2.27.0</AssemblyVersion>
+    <FileVersion>1.2.27.0</FileVersion>
+    <InformationalVersion>1.2.27-protocol-retry-safety</InformationalVersion>
     <Authors>Ari Sulistiono</Authors>
     <Company>Ari Sulistiono</Company>
     <Product>ArIEC103</Product>

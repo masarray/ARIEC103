@@ -7,7 +7,7 @@ v0.9 is a documentation/governance release. It does not change protocol runtime 
 - `AGENTS.md` with hard guardrails for future coding agents and maintainers.
 - `docs/PRODUCT_BENCHMARK_AND_STRATEGY.md` summarizing external product/protocol benchmark direction.
 - `docs/PROJECT_STRUCTURE_FINAL.md` defining mature repo boundaries.
-- `docs/MASTER_POLLING_POLICY.md` formalizing SCADA-correct Class 1/Class 2 behavior.
+- `docs/MASTER_POLLING_POLICY.md` formalizing controlled Class 1/Class 2 behavior.
 - `docs/EVENT_LOG_POLICY.md` formalizing relay timestamp and edge-event logging rules.
 - `docs/CLEAN_ROOM_POLICY.md` to protect Apache-2.0 clean-room implementation.
 - `docs/ROADMAP.md` with v1.0–v1.4 product direction.

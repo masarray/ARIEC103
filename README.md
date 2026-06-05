@@ -1,75 +1,79 @@
 # ArIEC103
 
-**ArIEC103** is an Apache-2.0 clean-room IEC 60870-5-103 active master tester and analyzer for protection relay communication testing.
+**ArIEC103** is an Apache-2.0 IEC 60870-5-103 active master tester and analyzer for protection relay communication checks.
 
-It connects to protection relays / IEDs acting as IEC-103 slaves, runs SCADA-correct master polling, decodes the response, keeps raw frame evidence available, and presents the result as readable engineering output for FAT, SAT, commissioning, and troubleshooting.
+It connects to one IEC-103 slave relay, runs a controlled master session, decodes relay responses, keeps raw TX/RX evidence available, and presents the result as readable engineering output for FAT, SAT, commissioning, and troubleshooting.
 
-> Current public release package: **v1.2.26 — Public release hygiene + Apache-2.0 notice audit**
+> Current public release package: **v1.2.27 — protocol retry safety, evidence privacy, CI smoke tests, and user-facing documentation refresh**
 
-## What this tool is for
+## Who this tool is for
 
-ArIEC103 is built for engineers who need to prove what happened on an IEC-103 serial link, not just see that bytes moved.
+ArIEC103 is for protection, SCADA, commissioning, and panel/FAT engineers who need to answer practical questions:
 
-Core use cases:
+- Is the relay answering on the selected COM port and link address?
+- Does General Interrogation start and finish cleanly?
+- Are Class 1 events requested only when the relay indicates pending event data?
+- What value/status did the relay send, and what was the relay timestamp?
+- Can the test evidence be exported for FAT/SAT records or troubleshooting review?
 
-- active IEC-103 master testing against one protection relay / IED slave
-- SCADA-style Class 2 background polling with ACD-driven Class 1 event drain
-- General Interrogation startup verification
-- relay timestamped event review
-- user-owned signal mapping from FUN/INF to project signal names
-- readable operator evidence plus raw frame trace transparency
-- Markdown/JSON evidence export for review, FAT/SAT records, and troubleshooting notes
+## Main features
 
-## Product boundary
+### Windows desktop tester
 
-ArIEC103 is intentionally focused:
+- COM port setup for IEC-103 serial communication.
+- Active master session against one relay/IED slave.
+- Setup overlay for baudrate, link address, common address, timeout, GI, and polling behavior.
+- Operator Evidence grid for readable session activity.
+- Line Monitor / Frame Trace view for raw TX/RX frame inspection.
+- Value Viewer snapshot for the latest decoded relay points.
+- Relay Event Log for relay timestamped state changes and events.
+- AutoTest-style assessment checklist.
+- Diagnostics tab for recoverable runtime issues.
+- Markdown evidence export.
 
-- single IEC-103 connection first
-- active master tester first
-- offline trace analyzer as a supporting mode
-- user mapping profiles instead of built-in guessed vendor profiles
-- raw FUN/INF/Type/COT/DPI/frame evidence always preserved
-- no copied source code from commercial, GPL, or unclear-license protocol stacks
+### Command-line tools
 
-It is **not** a vendor-specific tester, not a dual-redundancy IEC-101 clone, and not a wrapper around third-party IEC protocol stack source code.
+- Active master runner for repeatable bench tests.
+- Offline trace analyzer for existing IEC-103 logs.
+- Deterministic slave simulator for validating the master engine without relay hardware.
+- Markdown and JSON report output.
 
-## Main capabilities
+### User-owned signal mapping
 
-### Desktop WPF tester
+ArIEC103 decodes IEC-103 protocol fields such as Type, COT, FUN, INF, DPI/value, timestamp, checksum, and raw frame bytes.
 
-- COM port setup for IEC-103 serial communication
-- continuous master session until Stop
-- operator evidence grid
-- Line Monitor / Frame Trace view
-- Value Viewer snapshot
-- relay timestamped Event Log
-- AutoTest-style assessment checklist
-- Diagnostics tab for recoverable runtime issues
-- Markdown evidence export
+Readable project signal names come from your own JSON mapping profile. This avoids guessed vendor naming and keeps FAT/SAT evidence aligned with the approved project signal list.
 
-### CLI tools
+## How to use the desktop app
 
-- active master runner
-- offline trace analyzer
-- deterministic slave simulator for validating the master engine
-- Markdown and JSON report output
+1. Download the Windows release package from GitHub Releases.
+2. Open **ArIEC103.Desktop**.
+3. Click **Setup**.
+4. Select the COM port and serial settings used by the relay.
+5. Set the relay **Link Address** and **Common Address**.
+6. Keep **Reset FCB** enabled for normal startup synchronization.
+7. Enable **General Interrogation** when you want a startup snapshot.
+8. Load a mapping profile when you want readable signal names.
+9. Click **Start**.
+10. Review **Operator Evidence**, **Value Viewer**, **Relay Event Log**, and **Diagnostics**.
+11. Export Markdown evidence when you need a reviewable test record.
 
-### Protocol behavior
+## Master polling behavior
 
-The master polling policy is intentionally conservative and SCADA-like:
+ArIEC103 uses a conservative master policy suitable for relay testing:
 
 ```text
 Startup:
   Open transport
   Optional startup delay
-  Optional Reset Remote Link
+  Optional reset remote link
   Reset FCB
-  Optional Clock Sync
+  Optional clock sync
   Optional General Interrogation
-  Bounded GI Class 1 follow-up
+  Bounded GI follow-up
 
 Normal runtime:
-  Poll Class 2 at configured interval
+  Poll Class 2 at the configured interval
 
 If ACD=1:
   Drain Class 1 until NO DATA / GI END / ACD clear / DFC busy / max drain / timeout
@@ -77,8 +81,8 @@ If ACD=1:
 If DFC=1:
   Back off and record busy evidence
 
-If timeout:
-  Raise evidence and recover only after the configured timeout burst
+If timeout or invalid response:
+  Keep FCB state stable, record diagnostic evidence, and recover according to the configured timeout policy
 ```
 
 Bad behavior deliberately avoided:
@@ -94,7 +98,7 @@ NO DATA
 
 Class 1 is treated as pending high-priority/event data, not as a blind continuous polling loop.
 
-## Quick start
+## Quick start for developers
 
 Requirements:
 
@@ -145,9 +149,13 @@ Run deterministic slave simulator:
 dotnet run --project src/ArIEC103.Cli -- slave --port COM2 --baud 9600 --link 1 --ca 1 --duration 300
 ```
 
-## User mapping profile
+Run protocol smoke tests:
 
-ArIEC103 does not ship official relay-specific signal names. The application can decode IEC-103 protocol evidence, but project signal naming belongs to the user through a mapping profile.
+```bash
+dotnet run --project tests/ArIEC103.Protocol.Tests
+```
+
+## User mapping profile
 
 Example:
 
@@ -187,48 +195,24 @@ If mapping is not loaded, the app keeps raw protocol evidence visible:
 FUN 192 / INF 36 | DPI=2 | relay timestamp
 ```
 
-## Architecture
+## Evidence privacy
 
-```text
-ArIEC103.Core
-  FT1.2 parser
-  link control decoder
-  IEC-103 ASDU starter decoder
-  user mapping profile schema/loader
-  offline trace analyzer
-  Markdown/JSON report primitives
+Public evidence reports should not expose local workstation folders or customer file paths.
 
-ArIEC103.Master
-  serial transport
-  deterministic simulated relay transport
-  FT1.2 frame builder
-  active master state machine
-  ACD-driven polling policy
-  bounded GI follow-up
-  timeout recovery
-  live evidence events
-  Value Viewer model
-  relay timestamp Event Log model
-  master Markdown/JSON report
+By default, ArIEC103 exports only the mapping profile file name, not the full local path. Full local paths are reserved for private debugging only.
 
-ArIEC103.Cli
-  analyze command
-  master command
-  slave simulator command
-  mapping profile support
+## Product boundary
 
-ArIEC103.Desktop
-  WPF master tester shell
-  setup overlay
-  live evidence views
-  Value Viewer
-  Relay Event Log
-  AutoTest assessment
-  Diagnostics
-  report export
-```
+ArIEC103 is intentionally focused:
 
-WPF is intentionally kept as a shell over the engine. Protocol state, FCB/FCV handling, Class 1 drain decisions, ASDU parsing, and event classification belong in `ArIEC103.Master` and `ArIEC103.Core`.
+- one IEC-103 connection first
+- active master tester first
+- offline trace analyzer as a supporting mode
+- user mapping profiles instead of guessed vendor profiles
+- raw FUN/INF/Type/COT/DPI/frame evidence always preserved
+- no built-in vendor-specific signal database
+
+It is not a vendor-specific tester, not a multi-protocol SCADA gateway, and not a replacement for formal site acceptance procedures.
 
 ## Repository hygiene
 
@@ -244,21 +228,6 @@ See:
 - `docs/CLEAN_ROOM_POLICY.md`
 - `docs/PUBLIC_RELEASE_AUDIT.md`
 
-## Third-party components
-
-Runtime/framework references are documented in `THIRD_PARTY_NOTICES.md`.
-
-Current notable third-party items:
-
-- .NET 8 / `System.IO.Ports` for serial COM-port I/O
-- Lucide-style outline icon geometry references for the WPF command rail
-
-The `IEC / 103` software icon is project-owned raster artwork.
-
 ## License
 
 ArIEC103 is released under the **Apache License, Version 2.0**. See `LICENSE`.
-
-Copyright 2026 Ari Sulistiono.
-
-Unless explicitly stated otherwise, contributions submitted to this repository are provided under Apache-2.0. See `CONTRIBUTING.md`.

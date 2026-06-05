@@ -1,0 +1,15 @@
+<!-- Copyright 2026 Ari Sulistiono -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>ArIEC103.Protocol.Tests</AssemblyName>
+    <RootNamespace>ArIEC103.Protocol.Tests</RootNamespace>
+    <Description>Dependency-free protocol smoke tests for ArIEC103 CI.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ArIEC103.Core\ArIEC103.Core.csproj" />
+    <ProjectReference Include="..\..\src\ArIEC103.Master\ArIEC103.Master.csproj" />
+  </ItemGroup>
+</Project>

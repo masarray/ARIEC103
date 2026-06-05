@@ -6,7 +6,7 @@ v0.5 introduces the first Windows desktop product shell for ArIEC103.
 
 The product direction remains locked:
 
-> ArIEC103 is an Apache-2.0 IEC 60870-5-103 Master Tester that connects to protection relays acting as IEC-103 slaves, with deep evidence and SCADA-correct polling behavior.
+> ArIEC103 is an Apache-2.0 IEC 60870-5-103 Master Tester that connects to protection relays acting as IEC-103 slaves, with deep evidence and controlled polling behavior.
 
 ## Added
 

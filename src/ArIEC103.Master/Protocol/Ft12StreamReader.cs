@@ -21,7 +21,7 @@ public sealed class Ft12StreamReader
 
         try
         {
-            var first = await ReadByteAsync(timeout.Token).ConfigureAwait(false);
+            var first = await ReadStartByteAsync(timeout.Token).ConfigureAwait(false);
             if (first is null)
             {
                 return null;
@@ -56,7 +56,7 @@ public sealed class Ft12StreamReader
                 return new[] { first.Value }.Concat(header).Concat(rest).ToArray();
             }
 
-            return new[] { first.Value };
+            return null;
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
@@ -66,6 +66,29 @@ public sealed class Ft12StreamReader
         {
             return null;
         }
+    }
+
+    private async Task<byte?> ReadStartByteAsync(CancellationToken cancellationToken)
+    {
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            var value = await ReadByteAsync(cancellationToken).ConfigureAwait(false);
+            if (value is null)
+            {
+                return null;
+            }
+
+            if (value.Value is 0xE5 or 0x10 or 0x68)
+            {
+                return value;
+            }
+
+            // Serial links can contain leftover/noise bytes after converter turnaround,
+            // cable disturbance, or aborted reads. Resync to the next FT1.2 start byte
+            // instead of returning one malformed frame per noise byte.
+        }
+
+        return null;
     }
 
     private async Task<byte?> ReadByteAsync(CancellationToken cancellationToken)

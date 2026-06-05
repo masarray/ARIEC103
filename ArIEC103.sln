@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArIEC103.Cli", "src\ArIEC10
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArIEC103.Desktop", "src\ArIEC103.Desktop\ArIEC103.Desktop.csproj", "{A9E10305-1030-4A5A-B103-71E103A10305}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArIEC103.Protocol.Tests", "tests\ArIEC103.Protocol.Tests\ArIEC103.Protocol.Tests.csproj", "{B1E10306-1030-4C5A-B103-71E103A10306}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{A9E10305-1030-4A5A-B103-71E103A10305}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9E10305-1030-4A5A-B103-71E103A10305}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9E10305-1030-4A5A-B103-71E103A10305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E10306-1030-4C5A-B103-71E103A10306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E10306-1030-4C5A-B103-71E103A10306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E10306-1030-4C5A-B103-71E103A10306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E10306-1030-4C5A-B103-71E103A10306}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

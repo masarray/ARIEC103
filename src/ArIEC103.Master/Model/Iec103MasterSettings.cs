@@ -42,6 +42,28 @@ public sealed class Iec103MasterSettings
     public bool ResetFcbAfterTimeoutBurst { get; set; } = true;
 
     /// <summary>
+    /// Public reports should not expose local folder/customer paths by default.
+    /// Enable this only for private debugging where the full workstation path is useful.
+    /// </summary>
+    public bool IncludeLocalPathsInReports { get; set; } = false;
+
+    /// <summary>
+    /// Returns a copy suitable for Markdown/JSON evidence export.
+    /// Operational settings are preserved, while local path fields are reduced to file names
+    /// unless IncludeLocalPathsInReports is explicitly enabled.
+    /// </summary>
+    public Iec103MasterSettings CreateReportSnapshot()
+    {
+        var copy = (Iec103MasterSettings)MemberwiseClone();
+        if (!IncludeLocalPathsInReports && !string.IsNullOrWhiteSpace(copy.MappingProfilePath))
+        {
+            copy.MappingProfilePath = Path.GetFileName(copy.MappingProfilePath);
+        }
+
+        return copy;
+    }
+
+    /// <summary>
     /// Memory guard for long polling sessions. Counters always keep full totals, but retained
     /// evidence is bounded so the desktop app and JSON export stay responsive.
     /// </summary>

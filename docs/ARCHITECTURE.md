@@ -29,7 +29,7 @@ For ArIEC103 we keep this pattern, but we remove:
 - dual redundancy
 - NUC workspace
 - slave simulator scope
-- lib60870 dependency
+- external protocol-stack dependency
 
 ## Layers
 
@@ -41,7 +41,7 @@ ArIEC103.Master
   Single active master session
   Serial transport
   FT1.2 frame builder
-  SCADA-correct polling policy
+  controlled polling policy
   Master evidence and findings
 
 ArIEC103.Core
@@ -142,10 +142,10 @@ WPF must not own protocol behavior. Polling policy, state transitions, frame bui
 
 This repo must remain independent:
 
-- no lib60870 source
-- no Open103 source
-- no Wireshark dissector source
-- no commercial protocol stack
+- no external protocol-stack source
+- no unrelated open-source protocol-stack source
+- no packet-dissector source
+- no commercial protocol-stack source
 - no copied state machine from third-party libraries
 
 System.IO.Ports may be used for serial I/O only. IEC-103 framing, polling, decoding, and evidence logic are written in this repository.

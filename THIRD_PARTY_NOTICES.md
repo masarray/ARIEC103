@@ -47,7 +47,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 
 The IEC 60870-5-103 framing, decoding, polling policy, evidence handling, and reporting logic in this repository are implemented as clean-room source code under Apache-2.0.
 
-No source code from lib60870, Open103, Wireshark, commercial IEC protocol stacks, or GPL protocol implementations is included.
+No source code from external protocol stacks, dissectors, commercial IEC protocol stacks, or GPL protocol implementations is included.
 
 ## Benchmark-only references
 

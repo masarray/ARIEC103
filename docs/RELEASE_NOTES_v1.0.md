@@ -15,7 +15,7 @@
 v1.0 keeps ArIEC103 focused as a universal IEC-103 active master tester and analyzer:
 
 - Active master to one IEC-103 slave relay.
-- SCADA-correct polling policy.
+- controlled polling policy.
 - User-defined mapping profile.
 - Relay timestamp event log.
 - Evidence-first engineering diagnosis.

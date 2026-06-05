@@ -1,12 +1,30 @@
 # ArIEC103 Landing Page
 
-Static landing page for GitHub Pages.
+Static user-facing landing page for ArIEC103.
 
-No build step is required. The page is intentionally dependency-free: plain HTML, CSS, and a small progressive-enhancement script.
+The page should explain, in practical language:
 
-Source screenshots live in `screenshot/`. Optimized WebP assets used by the page live in `assets/screenshots/` for faster loading.
+- what the software does
+- who it is for
+- the main workflow screens
+- polling behavior in field-test terms
+- evidence/export benefits
+- how to download and start the desktop app
 
-Recommended GitHub Pages source:
+Keep the page focused on features, workflow, and usage. Avoid internal implementation debates or technical details that ordinary users do not need.
 
-- use the included GitHub Actions workflow, or
-- set GitHub Pages source to the `/landing` folder if your repository settings support it.
+The public page uses optimized screenshots from `assets/screenshots/`. Source screenshots may be kept in `screenshot/` only when they are current, correct, and safe to publish.
+
+## GitHub Pages deployment notes
+
+This repository includes compatibility files for three common GitHub Pages setups:
+
+1. **GitHub Actions**: `.github/workflows/pages.yml` publishes the `landing/` folder.
+2. **Deploy from branch / root**: root `index.html` redirects visitors to `landing/`.
+3. **Deploy from branch / docs**: `docs/index.html` contains a deployable copy of the landing page.
+
+If the public URL returns 404, check repository **Settings → Pages**:
+
+- Recommended source: **GitHub Actions**.
+- If using branch deployment, select either `/root` or `/docs` and wait until the Pages build finishes.
+- Make sure the workflow is allowed to run on the actual default branch, either `main` or `master`.

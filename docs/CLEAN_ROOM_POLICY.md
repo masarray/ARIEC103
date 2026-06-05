@@ -13,7 +13,7 @@ ArIEC103 is intended to be legally clean and corporate-friendly under Apache-2.0
 
 ## Forbidden Inputs
 
-- Copying source from lib60870, MZ CS103, Open103, Wireshark, Lua dissectors, commercial stacks, or vendor tools
+- Copying source from external protocol stacks, dissectors, unclear-license sources, commercial stacks, or vendor tools
 - Porting class structure/state machine from third-party code
 - Copying vendor manual tables into repo without explicit legal clearance
 - Shipping customer relay database or private project mapping as samples
@@ -26,8 +26,8 @@ External projects may be used only for market/feature awareness, not as source c
 Examples:
 
 ```text
-Allowed: “Wireshark exposes fields such as FCB, ACD, FUN, INF; ArIEC103 should expose equivalent evidence.”
-Forbidden: copy Wireshark dissector code or table names/logic directly.
+Allowed: “Public protocol references expose fields such as FCB, ACD, FUN, INF; ArIEC103 should expose equivalent evidence.”
+Forbidden: copy external dissector code, table names, or implementation logic directly.
 ```
 
 ## File Header

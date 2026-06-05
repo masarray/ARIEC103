@@ -19,7 +19,7 @@ public sealed class Iec103TraceAnalyzer
         }
 
         var text = File.ReadAllText(filePath);
-        return AnalyzeText(text, filePath);
+        return AnalyzeText(text, Path.GetFileName(filePath));
     }
 
     public AnalysisReport AnalyzeText(string text, string sourceName = "inline")

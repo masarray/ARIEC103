@@ -6,7 +6,7 @@ This file is the operating contract for every future coding agent, assistant, or
 
 ArIEC103 is an **Apache-2.0 clean-room IEC 60870-5-103 Active Master Tester + Analyzer**.
 
-It connects to protection relays / IEDs acting as IEC-103 slaves, runs SCADA-correct master polling, decodes the response, updates Value Viewer and Relay Event Log, and exports deep engineering evidence.
+It connects to protection relays / IEDs acting as IEC-103 slaves, runs controlled master polling, decodes the response, updates Value Viewer and Relay Event Log, and exports deep engineering evidence.
 
 ArIEC103 is **not**:
 
@@ -14,7 +14,7 @@ ArIEC103 is **not**:
 - a vendor-specific relay tester
 - a generic fake profile generator
 - a dual-redundancy IEC-101 clone
-- a wrapper around lib60870, Open103, Wireshark, or any commercial/GPL protocol stack
+- a wrapper around external, commercial, GPL, or unclear-license protocol stack source
 
 ## Product Non-Negotiables
 
@@ -25,7 +25,7 @@ ArIEC103 is **not**:
 2. **Single connection baseline**
    - Do not add dual-link redundancy, active/standby, or NUC-style architecture unless explicitly requested.
 
-3. **SCADA-correct polling**
+3. **Controlled polling**
    - Class 2 is normal/background polling.
    - Class 1 is event-drain only, triggered by ACD=1 or bounded GI follow-up.
    - Never bombard Class 1 while the slave keeps returning NO DATA / ACD=0.
@@ -44,7 +44,7 @@ ArIEC103 is **not**:
    - Even when mapped signal names are shown, always retain FUN/INF/Type/COT/DPI/raw hex in UI and reports.
 
 7. **Clean-room implementation**
-   - No copied code from lib60870, MZ, Open103, Wireshark dissectors, vendor SDKs, or commercial protocol stacks.
+   - No copied code from external protocol stacks, packet dissectors, vendor SDKs, or commercial protocol stacks.
    - Public docs and standards can guide behavior, but code must be independently written.
    - Do not paste vendor manual tables into the repo unless the user explicitly confirms legal permission.
 

@@ -20,7 +20,7 @@ Practical implication for ArIEC103:
 
 ### Commercial protocol stacks
 
-Commercial CS103 libraries, such as MZ Automation and JPEmbedded, position IEC-103 as a master/client and slave/server protocol stack for serial unbalanced links, with customization and standard ASDU coverage.
+Commercial IEC-103 stacks show that active master/client and slave/server behavior is a recognized need for serial unbalanced links, customization, and ASDU coverage.
 
 Practical implication:
 
@@ -30,7 +30,7 @@ Practical implication:
 
 ### Protocol analyzers / dissectors
 
-Wireshark exposes IEC-103 fields including checksum, ASDU address/type/COT, CP32Time2a, PRM, FCB, FCV, DFC, DPI, function type, information number, and link address.
+Public protocol references and packet analyzers expose IEC-103 fields such as checksum, ASDU address/type/COT, CP32Time2a, PRM, FCB, FCV, DFC, DPI, function type, information number, and link address.
 
 Practical implication:
 
@@ -49,7 +49,7 @@ Practical implication:
 
 ### GitHub / open-source landscape
 
-Open-source IEC-103 projects exist but are thin or not product-ready. Open103 is Apache-2.0 and small; its README says it is not a real drop-in library and has an unfinished .NET binding. Wireshark/Lua dissectors help decode traffic, not act as an IEC-103 master tester.
+Some public IEC-103 examples and packet dissectors help with market awareness, but they are not used as implementation source and do not define the product workflow.
 
 Practical implication:
 
@@ -73,7 +73,7 @@ ArIEC103 v1.0 should provide:
 1. Active IEC-103 master connection to one slave relay.
 2. Serial COM setup with link/common address and timing options.
 3. Startup sequence: Reset Link, Reset FCB, optional Clock Sync, GI.
-4. SCADA-correct polling: Class 2 normal, Class 1 only on ACD=1 / bounded GI drain.
+4. controlled polling: Class 2 normal, Class 1 only on ACD=1 / bounded GI drain.
 5. Raw frame monitor: TX/RX, checksum, PRM/FCB/FCV/ACD/DFC.
 6. ASDU decode: Type, COT, CA, FUN, INF, DPI/value, relay timestamp.
 7. User mapping profile: user-provided FUN/INF/type to signal name/state/unit.

@@ -185,8 +185,9 @@ public sealed class Iec103MasterSession
             .ToArray();
         var eventLog = _eventLog.ToArray();
         var completedNormally = !completion.StartsWith("Fault:", StringComparison.OrdinalIgnoreCase);
+        var reportSettings = _settings.CreateReportSnapshot();
         var assessment = Iec103MasterAssessmentBuilder.Build(
-            _settings,
+            reportSettings,
             _counters,
             events,
             findings,
@@ -196,7 +197,7 @@ public sealed class Iec103MasterSession
 
         return new Iec103MasterRunResult
         {
-            Settings = _settings,
+            Settings = reportSettings,
             Counters = _counters,
             Events = events,
             Findings = findings,
@@ -365,37 +366,108 @@ public sealed class Iec103MasterSession
         bool consumeResponse,
         CancellationToken cancellationToken)
     {
-        var control = Ft12FrameBuilder.BuildPrimaryControl(functionCode, fcv: fcv, fcb: fcv && _fcb);
+        var fcbBeforeSend = _fcb;
+        var control = Ft12FrameBuilder.BuildPrimaryControl(functionCode, fcv: fcv, fcb: fcv && fcbBeforeSend);
         var frame = Ft12FrameBuilder.Fixed(control, _settings.LinkAddress);
         await SendRawAsync(frame, summary, dataClass, pollingReason, cancellationToken).ConfigureAwait(false);
 
-        if (fcv)
+        if (!consumeResponse)
         {
-            _fcb = !_fcb;
+            AdvanceFcbAfterUnconfirmedSend(fcv, fcbBeforeSend);
+            return;
         }
-
-        if (consumeResponse)
-        {
-            var response = await ReceiveOneAsync(dataClass, pollingReason, cancellationToken).ConfigureAwait(false);
-            if (response is null)
-            {
-                await HandleTimeoutRecoveryAsync(summary, cancellationToken).ConfigureAwait(false);
-            }
-        }
-    }
-
-    private async Task SendVariableAndReceiveAsync(string summary, string dataClass, IReadOnlyList<byte> asdu, string pollingReason, CancellationToken cancellationToken)
-    {
-        var control = Ft12FrameBuilder.BuildPrimaryControl(3, fcv: true, fcb: _fcb);
-        var frame = Ft12FrameBuilder.Variable(control, _settings.LinkAddress, asdu);
-        await SendRawAsync(frame, summary, dataClass, pollingReason, cancellationToken).ConfigureAwait(false);
-        _fcb = !_fcb;
 
         var response = await ReceiveOneAsync(dataClass, pollingReason, cancellationToken).ConfigureAwait(false);
         if (response is null)
         {
             await HandleTimeoutRecoveryAsync(summary, cancellationToken).ConfigureAwait(false);
+            return;
         }
+
+        AdvanceFcbAfterResponse(fcv, fcbBeforeSend, response, summary, dataClass, pollingReason);
+    }
+
+    private async Task SendVariableAndReceiveAsync(string summary, string dataClass, IReadOnlyList<byte> asdu, string pollingReason, CancellationToken cancellationToken)
+    {
+        var fcbBeforeSend = _fcb;
+        var control = Ft12FrameBuilder.BuildPrimaryControl(3, fcv: true, fcb: fcbBeforeSend);
+        var frame = Ft12FrameBuilder.Variable(control, _settings.LinkAddress, asdu);
+        await SendRawAsync(frame, summary, dataClass, pollingReason, cancellationToken).ConfigureAwait(false);
+
+        var response = await ReceiveOneAsync(dataClass, pollingReason, cancellationToken).ConfigureAwait(false);
+        if (response is null)
+        {
+            await HandleTimeoutRecoveryAsync(summary, cancellationToken).ConfigureAwait(false);
+            return;
+        }
+
+        AdvanceFcbAfterResponse(fcv: true, fcbBeforeSend, response, summary, dataClass, pollingReason);
+    }
+
+    private void AdvanceFcbAfterUnconfirmedSend(bool fcv, bool fcbBeforeSend)
+    {
+        if (!fcv)
+        {
+            return;
+        }
+
+        _fcb = !fcbBeforeSend;
+    }
+
+    private void AdvanceFcbAfterResponse(bool fcv, bool fcbBeforeSend, Ft12FrameDecode response, string summary, string dataClass, string pollingReason)
+    {
+        if (!fcv)
+        {
+            return;
+        }
+
+        if (IsValidSecondaryTransactionResponse(response))
+        {
+            _fcb = !fcbBeforeSend;
+            return;
+        }
+
+        _fcb = fcbBeforeSend;
+        AddFcbDiagnosticEvent(
+            "IEC103-FCB-HOLD",
+            "FCB held after invalid or ambiguous relay response",
+            $"{summary}: response was not accepted for FCB advancement. Current FCB remains {(_fcb ? 1 : 0)}. Response={response.ShortMeaning}",
+            dataClass,
+            pollingReason,
+            category: "Warning");
+    }
+
+    private static bool IsValidSecondaryTransactionResponse(Ft12FrameDecode response)
+    {
+        if (response.Format == Ft12FrameFormat.Malformed || !response.IsChecksumValid)
+        {
+            return false;
+        }
+
+        if (response.Format == Ft12FrameFormat.SingleCharacter)
+        {
+            return true;
+        }
+
+        return response.LinkControl is not null && !response.LinkControl.Prm;
+    }
+
+    private void AddFcbDiagnosticEvent(string eventId, string summary, string detail, string dataClass, string pollingReason, string category)
+    {
+        AddEvent(new Iec103MasterEvidenceEvent
+        {
+            Direction = FrameDirection.Unknown,
+            State = _state,
+            Category = category,
+            DataClass = dataClass,
+            PollingReason = pollingReason,
+            Summary = summary,
+            Detail = detail,
+            OperatorMessage = summary,
+            ProtocolMeaning = eventId,
+            OperatorAction = pollingReason,
+            RawHex = string.Empty
+        });
     }
 
     private async Task SendRawAsync(byte[] frame, string summary, string dataClass, string pollingReason, CancellationToken cancellationToken)
@@ -510,14 +582,18 @@ public sealed class Iec103MasterSession
             _counters.MalformedFrames++;
         }
 
+        var validFrame = decoded.Format != Ft12FrameFormat.Malformed && decoded.IsChecksumValid;
         if (decoded.Format == Ft12FrameFormat.SingleCharacter)
         {
             _counters.AckResponses++;
         }
 
-        ApplySecondaryState(decoded);
+        if (validFrame)
+        {
+            ApplySecondaryState(decoded);
+        }
 
-        var mappingUpdate = BuildMappingUpdate(decoded, ToHex(raw), DateTime.UtcNow);
+        var mappingUpdate = validFrame ? BuildMappingUpdate(decoded, ToHex(raw), DateTime.UtcNow) : MappingUpdate.Empty;
         var receiveDetail = BuildReceiveDetail(decoded, mappingUpdate);
         var operatorMessage = BuildReceiveOperatorMessage(decoded, mappingUpdate, dataClass, pollingReason);
 

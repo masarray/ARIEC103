@@ -191,7 +191,7 @@ public static class Iec103MasterAssessmentBuilder
 
         if (valuePoints.Count == 0)
         {
-            return Info("Mapping", "Mapping profile loaded but no values were decoded", $"Profile path={settings.MappingProfilePath}.", "Validate mapping coverage after value/status data is received.");
+            return Info("Mapping", "Mapping profile loaded but no values were decoded", $"Profile file={settings.MappingProfilePath}.", "Validate mapping coverage after value/status data is received.");
         }
 
         var mapped = valuePoints.Count(x => x.IsMapped);

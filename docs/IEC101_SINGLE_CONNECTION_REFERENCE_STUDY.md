@@ -116,7 +116,7 @@ The direction is:
 
 ```text
 IEC-103 Master Tester for protection relay slaves,
-with deep evidence and SCADA-correct polling behavior.
+with deep evidence and controlled polling behavior.
 ```
 
 Offline forensic analysis remains useful, but the main product path is now active master testing.

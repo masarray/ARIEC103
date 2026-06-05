@@ -39,7 +39,7 @@ Single active IEC-103 master connection -> protection relay IEC-103 slave
 - Dual redundancy.
 - NUC active/standby orchestration.
 - Slave simulator.
-- lib60870 / Open103 / Wireshark / commercial protocol stack dependency.
+- external protocol stack/dissector dependency.
 
 ## Important note
 
