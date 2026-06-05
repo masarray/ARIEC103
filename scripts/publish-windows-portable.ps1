@@ -10,11 +10,11 @@
   for local release preparation and for GitHub Actions release packaging.
 
 .EXAMPLE
-  pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.31
+  pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.33
 #>
 [CmdletBinding()]
 param(
-    [string]$Version = "1.2.31",
+    [string]$Version = "1.2.33",
     [ValidateSet("Debug", "Release")]
     [string]$Configuration = "Release",
     [string]$Runtime = "win-x64",

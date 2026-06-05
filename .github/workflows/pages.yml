@@ -10,6 +10,8 @@ on:
       - 'docs/**'
       - 'index.html'
       - '404.html'
+      - 'robots.txt'
+      - 'sitemap.xml'
       - '.nojekyll'
       - '.github/workflows/pages.yml'
   workflow_dispatch:

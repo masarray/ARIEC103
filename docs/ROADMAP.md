@@ -1,56 +1,61 @@
-# ArIEC103 Roadmap
+# ArIEC103 Planned Improvements
 
-ArIEC103 is currently positioned as a public beta / release candidate for IEC 60870-5-103 master testing and relay communication evidence. The v1.2.30 track adds release packaging, checksum, quick-start, troubleshooting, and validation-matrix groundwork. The next work should prioritize field validation and repeatable operator workflow instead of adding random features.
+ArIEC103 is focused on IEC 60870-5-103 active master testing, relay communication troubleshooting, and reviewable protocol evidence. The roadmap below describes the user-visible improvements planned for future releases.
 
-## Phase 1 — Release hardening
+## 1. Easier release packages
 
-Goal: make the public repository look credible, easy to verify, and safe to download.
+Planned outcome: users can download a Windows portable ZIP, verify the checksum, run the desktop app, and follow the quick-start guide without opening the source project.
 
-Status: initial implementation included in v1.2.30.
+Current status:
 
-- Keep GitHub Actions CI green on every push.
-- Keep GitHub Pages deploy status visible.
-- Publish a Windows x64 portable package from a clean release build.
-- Add SHA256 checksums for release artifacts.
-- Keep README badges and release notes current.
-- Keep public reports free from local workstation paths and customer project folders.
-- Verify the generated portable ZIP on a clean Windows machine before public release.
+- Windows portable package workflow is available.
+- SHA256 checksum file is generated with release assets.
+- Quick Start and Troubleshooting guides are included.
+- GitHub Pages landing page links to releases and documentation.
 
-## Phase 2 — Field validation
+## 2. Stronger validation evidence
 
-Goal: prove the master behavior against real relay behavior, not only source-code inspection.
+Planned outcome: users can see which simulator, bench, and relay scenarios were checked for each release.
 
-- Maintain a relay/simulator validation matrix.
-- Add sanitized IEC-103 frame test vectors under `samples/test-vectors/`.
-- Expand ASDU decoder tests using known-good frames.
-- Test FCB retry behavior under timeout, malformed frame, checksum error, and relay busy conditions.
-- Record supported baudrate, parity, link address, GI, Class 1, Class 2, and measurand behavior.
+Planned items:
 
-## Phase 3 — Operator workflow
+- Public validation matrix for simulator and sanitized relay tests.
+- Sanitized IEC-103 frame test vectors.
+- More ASDU decoder tests using known-good frames.
+- FCB retry checks under timeout, malformed frame, checksum error, and relay busy conditions.
+- Clear notes for baudrate, parity, link address, GI, Class 1, Class 2, and measurand behavior.
 
-Goal: make the app easier for protection, SCADA, FAT, and commissioning engineers who need fast answers.
+## 3. Better operator workflow
 
-- Add save/load connection profiles.
-- Add recent profiles for frequently used relay settings.
-- Add serial health diagnostics: RX/TX activity, timeout rate, checksum error rate, malformed frame rate, and likely wrong-address symptoms.
-- Add a guided test checklist: connect, reset link, GI, Class 2 polling, Class 1 event observation, evidence export.
-- Improve troubleshooting messages so the user knows what to check next.
+Planned outcome: first-time users can complete a relay communication check with less protocol guesswork.
 
-## Phase 4 — FAT evidence
+Planned items:
 
-Goal: produce a reviewable evidence package that can be attached to FAT/SAT records.
+- Save/load connection profiles.
+- Recent profiles for frequently used relay settings.
+- Serial health diagnostics: RX/TX activity, timeout rate, checksum error rate, malformed frame rate, and likely wrong-address symptoms.
+- Guided test checklist: connect, reset link, GI, Class 2 polling, Class 1 event observation, evidence export.
+- More actionable troubleshooting messages.
 
-- Add one-click formatted PDF report.
-- Include session metadata, app version, COM settings, relay address, duration, counters, warnings, and raw evidence appendix.
-- Add pass/fail style assessment summary without overclaiming formal compliance.
-- Add export package ZIP containing Markdown, JSON, PDF, and sanitized raw trace.
+## 4. FAT/SAT evidence package
 
-## Phase 5 — Analyzer maturity
+Planned outcome: users can export a cleaner evidence package for review and handover.
 
-Goal: make ArIEC103 useful beyond quick bench testing.
+Planned items:
 
-- Add capture replay mode.
-- Add compare-two-sessions workflow.
-- Improve long-duration test handling and evidence ring buffers.
-- Add stronger event/value filtering.
-- Refactor desktop code-behind into maintainable services and view models before adding more UI-heavy features.
+- Formatted PDF report.
+- Session metadata, app version, COM settings, relay address, duration, counters, warnings, and raw evidence appendix.
+- Pass/fail style assessment summary without replacing formal project acceptance procedures.
+- Export package containing Markdown, JSON, PDF, and sanitized raw trace.
+
+## 5. Analyzer maturity
+
+Planned outcome: ArIEC103 becomes more useful for repeated analysis and long-duration troubleshooting.
+
+Planned items:
+
+- Capture replay mode.
+- Compare-two-sessions workflow.
+- Stronger long-duration evidence retention.
+- Better event/value filtering.
+- Cleaner desktop architecture for future UI-heavy features.

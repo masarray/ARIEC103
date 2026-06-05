@@ -215,7 +215,7 @@ The master passes simulator validation when:
 
 ## Roadmap position
 
-The slave simulator should move earlier than professional PDF reporting because it protects the master engine from regressions.
+A deterministic slave simulator provides earlier regression protection than advanced PDF reporting because it exercises the master engine under repeatable scenarios.
 
 Recommended order:
 

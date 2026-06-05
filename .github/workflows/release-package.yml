@@ -8,7 +8,7 @@ on:
       version:
         description: 'Release version without leading v'
         required: true
-        default: '1.2.31'
+        default: '1.2.33'
       publish_release:
         description: 'Create or update GitHub Release after the package is built'
         type: boolean
@@ -122,10 +122,35 @@ jobs:
             $fallback = "docs/RELEASE_NOTES_v$version.md"
             if (Test-Path $fallback) {
               $notes = $fallback
-            } elseif (Test-Path "docs/RELEASE_PACKAGING.md") {
-              $notes = "docs/RELEASE_PACKAGING.md"
             } else {
-              throw "Release notes file not found: $notes"
+              $generatedNotes = "artifacts/release/RELEASE_NOTES_GENERATED.md"
+              $generatedLines = @(
+                "# ArIEC103 v$version",
+                "",
+                "This release provides a Windows portable package for IEC 60870-5-103 master testing and relay communication evidence review.",
+                "",
+                "## Release assets",
+                "",
+                '```text',
+                "ArIEC103-v$version-win-x64-portable.zip",
+                "SHA256SUMS.txt",
+                '```',
+                "",
+                "## How to try it",
+                "",
+                "1. Download the Windows portable ZIP from this release.",
+                "2. Extract the package to a local folder.",
+                "3. Run ``Start-ArIEC103.bat``.",
+                "4. Configure COM port, baudrate, parity, link address, common address, timeout, GI option, and optional mapping profile.",
+                "5. Start the session and review Operator Evidence, Value Viewer, Relay Event Log, Frame Trace, and Diagnostics.",
+                "6. Export evidence after the test session when needed.",
+                "",
+                "## Notes for evaluation",
+                "",
+                "Use this build for IEC-103 relay communication checks, bench testing, troubleshooting, and evidence review. Validate it with the target relay and approved project mapping profile before relying on exported evidence for formal FAT/SAT records."
+              )
+              $generatedLines | Set-Content -Path $generatedNotes -Encoding UTF8
+              $notes = $generatedNotes
             }
           }
 

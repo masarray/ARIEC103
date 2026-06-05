@@ -1,14 +1,15 @@
-# ArIEC103 v1.2.31 - Manual Release Publishing
+# ArIEC103 v1.2.31 - Windows Portable Release Flow
 
-This release improves the GitHub release flow for public beta distribution.
+This release improves how users get and verify the Windows portable package from GitHub Releases.
 
-## Highlights
+## What is included
 
-- Manual GitHub Actions run can now create or update a GitHub Release.
-- Manual workflow inputs now include version, publish release, pre-release, draft, and release notes file.
-- Tag-based release publishing is still supported.
-- Release assets are uploaded with a consistent portable ZIP name and SHA256 checksum.
-- Release packaging documentation now explains the manual release flow clearly.
+- Windows portable ZIP package for running the desktop app without opening the source project.
+- `SHA256SUMS.txt` for verifying downloaded release assets.
+- Quick Start guide for first relay communication checks.
+- Troubleshooting guide for common IEC-103 serial symptoms.
+- Validation matrix template for recording simulator, bench, and relay checks.
+- Cleaner README and landing-page links for users who want to download, run, and evaluate the application.
 
 ## Release assets
 
@@ -17,17 +18,15 @@ ArIEC103-v1.2.31-win-x64-portable.zip
 SHA256SUMS.txt
 ```
 
-## Recommended release setting
+## How to try it
 
-For the current project maturity, keep the GitHub Release marked as **Pre-release** until the relay validation matrix and ASDU test vectors are stronger.
+1. Download `ArIEC103-v1.2.31-win-x64-portable.zip` from GitHub Releases.
+2. Extract the ZIP to a local folder.
+3. Run `Start-ArIEC103.bat`.
+4. Open **Setup** and configure the relay serial settings.
+5. Click **Start** and review Operator Evidence, Value Viewer, Relay Event Log, Frame Trace, and Diagnostics.
+6. Export evidence after the test session when needed.
 
-## Validation reminder
+## Notes for evaluation
 
-Before promoting any release as stable:
-
-- Confirm `dotnet restore` passes.
-- Confirm `dotnet build` passes.
-- Confirm protocol smoke tests pass.
-- Test the portable package on a clean Windows machine.
-- Validate with at least one known IEC-103 relay or trusted simulator.
-- Review exported evidence before sharing externally.
+This build is intended for test-bench evaluation, communication troubleshooting, and protocol evidence review. Validate the application with the target relay, serial settings, and project mapping profile before relying on exported evidence for formal FAT/SAT records.

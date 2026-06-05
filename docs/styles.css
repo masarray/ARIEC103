@@ -1114,3 +1114,42 @@ p {
     flex-direction: column;
   }
 }
+
+
+.faq-section {
+  padding-top: 76px;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.faq-card {
+  padding: 24px;
+  border: 1px solid rgba(201, 215, 226, 0.78);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 18px 54px rgba(17, 40, 64, 0.07);
+}
+
+.faq-card h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.32;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.faq-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.68;
+}
+
+@media (max-width: 820px) {
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}

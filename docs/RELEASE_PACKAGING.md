@@ -1,43 +1,54 @@
-# ArIEC103 Release Packaging
+# ArIEC103 Release Assets
 
-This document describes the recommended release package flow for GitHub.
+This document explains the release assets available for users and the packaging automation available for contributors.
 
-## Preferred release assets
+## Assets users should download
 
-For each public release, provide:
+For normal use, download the Windows portable ZIP from GitHub Releases:
 
 ```text
 ArIEC103-vX.Y.Z-win-x64-portable.zip
 SHA256SUMS.txt
-Source code zip/tar.gz from GitHub
 ```
 
-The portable package is intended for engineers who want to run the tool without opening Visual Studio.
+The portable ZIP contains the desktop app, CLI tools, sample files, documentation, and license files. It is intended for users who want to try ArIEC103 without opening Visual Studio.
 
-## Local package command
+## How to run the portable package
+
+1. Download the ZIP from GitHub Releases.
+2. Extract it to a local folder.
+3. Run `Start-ArIEC103.bat`.
+4. Configure the relay communication settings in **Setup**.
+5. Start the session and review the evidence screens.
+
+## Verifying the download
+
+`SHA256SUMS.txt` is included with each package build so the downloaded ZIP can be verified against its checksum.
+
+## Building a package locally
 
 From repository root:
 
 ```powershell
-pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.31
+pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.33
 ```
 
 Expected output:
 
 ```text
-artifacts/release/ArIEC103-v1.2.31-win-x64-portable.zip
+artifacts/release/ArIEC103-v1.2.33-win-x64-portable.zip
 artifacts/release/SHA256SUMS.txt
 ```
 
 Verify package structure:
 
 ```powershell
-pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.31-win-x64-portable.zip
+pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.33-win-x64-portable.zip
 ```
 
 ## GitHub Actions package flow
 
-The workflow below creates the same portable ZIP and checksum:
+The repository includes this workflow:
 
 ```text
 .github/workflows/release-package.yml
@@ -48,39 +59,33 @@ Manual release run:
 1. Open **Actions**.
 2. Select **Build Windows portable package**.
 3. Click **Run workflow**.
-4. Set `version`, for example `1.2.31`.
-5. Keep **Create or update GitHub Release** enabled.
-6. Leave `release_notes_file` empty unless you want to force a specific notes file.
-7. Keep **Pre-release** enabled until the relay validation matrix is strong enough for a stable release.
-8. Click **Run workflow**.
+4. Set `version`, for example `1.2.33`.
+5. Keep **Create or update GitHub Release** enabled when the package should appear on the Releases page.
+6. Select pre-release or draft status as needed for the package maturity.
+7. Click **Run workflow**.
 
-The workflow will build the portable ZIP, verify the package structure, upload a workflow artifact, create tag `vX.Y.Z` when needed, and publish these assets to GitHub Releases:
+The workflow builds the portable ZIP, verifies package structure, uploads a workflow artifact, creates tag `vX.Y.Z` when needed, and publishes these assets to GitHub Releases:
 
 ```text
 ArIEC103-vX.Y.Z-win-x64-portable.zip
 SHA256SUMS.txt
 ```
 
-Tag release run is still supported for maintainers who prefer CLI release control:
+Tag release run is also supported:
 
 ```bash
-git tag v1.2.31
-git push origin v1.2.31
+git tag v1.2.33
+git push origin v1.2.33
 ```
 
-Both manual runs and tag builds can publish the portable ZIP and checksum to the GitHub release.
+## Package contents checklist
 
-## Release checklist
+A complete portable package includes:
 
-Before publishing a non-draft release:
-
-- `dotnet restore` passes.
-- `dotnet build` passes.
-- protocol smoke tests pass.
-- Windows portable ZIP is created.
-- portable app opens from extracted folder.
-- CLI help opens from extracted folder.
-- README badges render correctly.
-- GitHub Pages landing page is online.
-- release notes use honest beta/stable wording.
-- exported evidence is reviewed for customer-sensitive information.
+- desktop app executable and runtime files;
+- command-line tools;
+- `Start-ArIEC103.bat`;
+- quick-start and troubleshooting documents;
+- samples and mapping profile example;
+- `LICENSE`, `NOTICE`, and third-party notice file;
+- release notes and checksum file.

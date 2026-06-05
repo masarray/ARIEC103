@@ -1,51 +1,46 @@
-# Public Release Audit — v1.2.26
+# ArIEC103 Public Release Readiness
 
-Status: **public-source ready with normal project-owner review recommended before tagging**.
+This document summarizes the public-release readiness status of the repository. It is intended to help users and contributors understand what is included in the public source tree and what is intentionally excluded.
 
-This audit focuses on repository hygiene, Apache-2.0 readiness, third-party notice completeness, and public-facing wording.
+## Current status
 
-## Completed cleanup
+ArIEC103 is prepared for public source review and Windows portable package distribution.
 
-- Confirmed top-level `LICENSE` contains Apache License, Version 2.0.
-- Kept `PackageLicenseExpression` as `Apache-2.0` in project metadata.
-- Added centralized package/repository metadata in `Directory.Build.props`.
-- Added SPDX license identifiers to comment-capable source files.
-- Rewrote `README.md` as a clean public product overview instead of a long rolling changelog.
-- Updated `NOTICE` with concise project, Lucide, and System.IO.Ports attribution.
-- Updated `THIRD_PARTY_NOTICES.md` with third-party license details.
-- Added `SECURITY.md` to prevent accidental disclosure of sensitive relay/customer data in public issues.
-- Removed internal visual wording from current public-facing docs where it could look like an unrelated product dependency.
+The repository includes:
 
-## Release packaging rules
+- source code for the desktop app, command-line tools, protocol core, and master session logic;
+- protocol smoke tests;
+- public documentation for quick start, troubleshooting, validation tracking, and release assets;
+- static landing page for GitHub Pages;
+- Apache-2.0 license, notice files, security policy, and repository metadata;
+- sanitized samples only.
 
-Do not include these in public ZIPs or GitHub commits:
+## Public package boundary
 
-- `bin/`, `obj/`, `out/`, `dist/`, `node_modules/`
-- real field captures, COM logs, PCAP/PCAPNG, customer traces, spreadsheets, PDFs, MSG files
-- generated reports or exported evidence from real projects
-- secrets, tokens, private endpoints, production config
-- font files used only during artwork generation
+Public source and release packages are expected to contain:
 
-## Third-party dependency status
+- source files and tests;
+- documentation and sanitized samples;
+- generated Windows portable package from a clean build;
+- release notes and checksum file;
+- license and notice files.
 
-| Item | Purpose | License | Repository treatment |
-| --- | --- | --- | --- |
-| .NET 8 / WPF | runtime/framework | Microsoft/.NET licensing | framework dependency only |
-| System.IO.Ports 8.0.0 | serial COM-port I/O | MIT | NuGet package reference |
-| Lucide Icons geometry references | WPF action icons | ISC | attributed in `NOTICE` and `THIRD_PARTY_NOTICES.md` |
-| IEC / 103 app icon | project branding | project-owned | source asset included |
+Public source and release packages are not intended to contain:
 
-## Legal/clean-room risk notes
+- real customer or utility traces;
+- private COM logs, PCAP files, spreadsheets, PDFs, MSG files, or project exports;
+- generated reports from real projects;
+- secrets, tokens, private endpoints, or production configuration;
+- local IDE state or build output folders.
 
-- Keep relay signal names user-owned through mapping profiles.
-- Do not paste vendor manual tables into source or docs unless permission is explicit and documented.
-- Do not port parser/state-machine code from GPL/commercial IEC stacks.
-- Benchmark references in docs must remain descriptive, not copied implementation logic.
+## Evidence privacy
 
-## Suggested tag wording
+ArIEC103 is designed to keep protocol evidence visible while reducing accidental disclosure of local workstation paths. Public reports use mapping profile file names by default instead of full local paths.
 
-```text
-v1.2.26 — Public release hygiene + Apache-2.0 notice audit
+Users should still review exported evidence before sharing it outside the project team because relay addresses, project signal names, raw frame evidence, comments, and mapping labels may still be project-sensitive.
 
-This release prepares ArIEC103 for public repository use by cleaning README wording, centralizing package metadata, adding SPDX identifiers, updating NOTICE / THIRD_PARTY_NOTICES, and adding a security disclosure policy. Runtime behavior is unchanged from the previous logo/icon refresh package.
-```
+## Clean source principle
+
+ArIEC103 keeps relay signal naming user-owned through mapping profiles. The application decodes protocol-level evidence and avoids shipping built-in vendor-specific signal databases.
+
+Contributor changes should keep protocol behavior, documentation, and samples legally clean and reproducible.
