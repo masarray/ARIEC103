@@ -17,13 +17,19 @@ Current status:
 
 Planned outcome: users can see which simulator, bench, and relay scenarios were checked for each release.
 
-Planned items:
+Current status:
 
-- Public validation matrix for simulator and sanitized relay tests.
-- Sanitized IEC-103 frame test vectors.
-- More ASDU decoder tests using known-good frames.
-- FCB retry checks under timeout, malformed frame, checksum error, and relay busy conditions.
-- Clear notes for baudrate, parity, link address, GI, Class 1, Class 2, and measurand behavior.
+- Public validation matrix is available for simulator, bench, and sanitized relay tests.
+- Sanitized IEC-103 frame test vectors are available in `samples/test-vectors/`.
+- ASDU decoder smoke tests cover Type 1 event, Type 5 identification, Type 8 GI end, Type 9 measurand, and private/unknown ASDU transparency.
+- FCB retry checks cover timeout and invalid checksum recovery.
+
+Planned next items:
+
+- Add more known-good relay captures when they can be sanitized safely.
+- Add relay busy / DFC validation cases.
+- Add long-duration Class 2 polling validation notes.
+- Add clearer notes for baudrate, parity, link address, GI, Class 1, Class 2, and measurand behavior.
 
 ## 3. Better operator workflow
 

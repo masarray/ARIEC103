@@ -5,8 +5,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ArIEC103 | IEC 60870-5-103 Master Tester & Relay Analyzer</title>
-    <meta name="description" content="Windows IEC 60870-5-103 master tester and analyzer for protection relay FAT/SAT evidence, event logs, mapping profiles, and raw frame trace." />
+    <title>ArIEC103 | Free IEC 60870-5-103 Master Tester & Relay Analyzer</title>
+    <meta name="description" content="Free open-source Windows IEC 60870-5-103 master tester and analyzer for protection relay FAT/SAT evidence, event logs, mapping profiles, and raw frame trace." />
     <meta name="keywords" content="ArIEC103, IEC 60870-5-103, IEC-103, IEC103 master tester, protection relay tester, SCADA protocol analyzer, relay FAT, relay SAT, substation automation, FT1.2 frame trace, relay event log, WPF desktop tool" />
     <meta name="author" content="MasArray" />
     <meta name="creator" content="MasArray" />
@@ -23,16 +23,16 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="ArIEC103" />
     <meta property="og:url" content="https://masarray.github.io/ARIEC103/" />
-    <meta property="og:title" content="ArIEC103 IEC 60870-5-103 Master Tester" />
-    <meta property="og:description" content="IEC-103 relay testing with readable operator evidence, relay timestamped event logs, user mapping profiles, and raw frame trace transparency." />
+    <meta property="og:title" content="ArIEC103 Free IEC 60870-5-103 Master Tester" />
+    <meta property="og:description" content="Free open-source IEC-103 relay testing with readable operator evidence, relay timestamped event logs, user mapping profiles, and raw frame trace transparency." />
     <meta property="og:image" content="https://masarray.github.io/ARIEC103/assets/screenshots/ariec103-screen-02.webp" />
     <meta property="og:image:secure_url" content="https://masarray.github.io/ARIEC103/assets/screenshots/ariec103-screen-02.webp" />
     <meta property="og:image:width" content="1800" />
     <meta property="og:image:height" content="1080" />
     <meta property="og:image:alt" content="ArIEC103 Windows desktop line monitor cockpit screenshot" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ArIEC103 IEC-103 Master Tester" />
-    <meta name="twitter:description" content="Windows IEC-103 relay testing tool for FAT/SAT evidence, event logs, mapping profiles, and raw frame trace review." />
+    <meta name="twitter:title" content="ArIEC103 Free IEC-103 Master Tester" />
+    <meta name="twitter:description" content="Free open-source Windows IEC-103 relay testing tool for FAT/SAT evidence, event logs, mapping profiles, and raw frame trace review." />
     <meta name="twitter:image" content="https://masarray.github.io/ARIEC103/assets/screenshots/ariec103-screen-02.webp" />
     <meta name="twitter:image:alt" content="ArIEC103 Windows desktop line monitor cockpit screenshot" />
     <link rel="stylesheet" href="styles.css" />
@@ -46,14 +46,15 @@
                 "IEC 60870-5-103 Active Master Tester",
                 "IEC-103 Master Tester"
         ],
-        "description": "Windows IEC 60870-5-103 master tester and analyzer for protection relay FAT/SAT evidence, event logs, mapping profiles, and raw frame trace.",
+        "description": "Free open-source Windows IEC 60870-5-103 master tester and analyzer for protection relay FAT/SAT evidence, event logs, mapping profiles, and raw frame trace.",
         "url": "https://masarray.github.io/ARIEC103/",
         "codeRepository": "https://github.com/masarray/ARIEC103",
         "downloadUrl": "https://github.com/masarray/ARIEC103/releases/latest",
         "operatingSystem": "Windows",
         "applicationCategory": "DeveloperApplication",
-        "softwareVersion": "1.2.33",
+        "softwareVersion": "1.3.0",
         "isAccessibleForFree": true,
+        "isFamilyFriendly": true,
         "license": "https://github.com/masarray/ARIEC103/blob/main/LICENSE",
         "author": {
                 "@type": "Organization",
@@ -101,7 +102,9 @@
                 "Raw TX/RX frame trace",
                 "User-owned JSON signal mapping profiles",
                 "Markdown and JSON evidence export",
-                "Windows portable release package"
+                "Windows portable release package",
+                "Free and open-source Apache-2.0 software",
+                "Sanitized IEC-103 test vectors for release validation"
         ],
         "screenshot": [
                 "https://masarray.github.io/ARIEC103/assets/screenshots/ariec103-screen-02.webp",
@@ -125,6 +128,14 @@
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
+                {
+                        "@type": "Question",
+                        "name": "Is ArIEC103 free?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Yes. ArIEC103 is free and open source under Apache-2.0, with no license key, account requirement, or subscription for trying the release package."
+                        }
+                },
                 {
                         "@type": "Question",
                         "name": "What is ArIEC103 used for?",
@@ -184,6 +195,7 @@
         </span>
       </a>
       <nav class="nav-links" aria-label="Main navigation">
+        <a href="#why">Why try it</a>
         <a href="#value">Value</a>
         <a href="#screens">Screens</a>
         <a href="#polling">Polling</a>
@@ -198,18 +210,18 @@
     <main id="top">
       <section class="hero">
         <div class="hero-copy reveal">
-          <p class="eyebrow">IEC-103 master testing &bull; relay FAT/SAT &bull; field evidence</p>
+          <p class="eyebrow">Free & open source &bull; IEC-103 master testing &bull; relay evidence</p>
           <h1>IEC-103 master testing with readable relay evidence.</h1>
           <p class="lead">
-            ArIEC103 is a Windows desktop tool for protection relay communication checks.
-            It actively connects to one IEC 60870-5-103 slave, runs a controlled
-            relay test session, decodes relay responses, and keeps raw TX/RX
-            evidence available for engineering review.
+            ArIEC103 is a free, open-source Windows desktop tool for protection relay
+            communication checks. It actively connects to one IEC 60870-5-103 slave,
+            runs a controlled relay test session, decodes relay responses, and keeps
+            raw TX/RX evidence available for engineering review.
           </p>
           <div class="hero-actions">
             <a class="button primary" href="https://github.com/masarray/ARIEC103/releases/latest">
               <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-              <span>Get latest release</span>
+              <span>Download free Windows ZIP</span>
             </a>
             <a class="button secondary" href="https://github.com/masarray/ARIEC103">
               <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5a4.4 4.4 0 0 0-1.2-3.1 4.1 4.1 0 0 0-.1-3.1s-1-.3-3.4 1.2a11.5 11.5 0 0 0-6.2 0C6.7 2.5 5.7 2.8 5.7 2.8a4.1 4.1 0 0 0-.1 3.1A4.4 4.4 0 0 0 4.4 9c0 3.5 3 5.5 6 5.5A4.8 4.8 0 0 0 9.4 18v4"/><path d="M9 18c-4.5 2-5-2-7-2"/></svg>
@@ -234,6 +246,8 @@
             </a>
           </div>
           <div class="trust-strip" aria-label="Core product capabilities">
+            <span>Free Apache-2.0</span>
+            <span>No license key</span>
             <span>Active IEC-103 master</span>
             <span>Single connection baseline</span>
             <span>Relay timestamp SOE</span>
@@ -276,6 +290,36 @@
           <span>Frame Trace evidence</span>
           <span>User mapping import</span>
           <span>Export selected evidence</span>
+        </div>
+      </section>
+
+      <section class="section why-section" id="why">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Why try it</p>
+          <h2>Free, focused, and transparent enough for serious relay troubleshooting.</h2>
+          <p>
+            ArIEC103 is made for users who need a practical IEC-103 master tester without
+            license friction. Download the portable package, connect to a relay or simulator,
+            inspect readable evidence, and keep raw protocol detail available for escalation.
+          </p>
+        </div>
+        <div class="proof-grid">
+          <article class="proof-card reveal interactive-surface">
+            <strong>Free and open source</strong>
+            <span>No license key, no account, no subscription. Source code and releases are available under Apache-2.0.</span>
+          </article>
+          <article class="proof-card reveal delay-1 interactive-surface">
+            <strong>Built around real test work</strong>
+            <span>Setup, GI, Class 2 polling, Class 1 event drain, diagnostics, event log, and export are organized around bench/FAT workflow.</span>
+          </article>
+          <article class="proof-card reveal delay-2 interactive-surface">
+            <strong>Evidence first</strong>
+            <span>Readable operator rows help explain what happened. Raw frame visibility is still available when the issue needs protocol-level review.</span>
+          </article>
+          <article class="proof-card reveal delay-3 interactive-surface">
+            <strong>Validation guardrails</strong>
+            <span>Protocol smoke tests, sanitized test vectors, and a validation matrix help users evaluate the package before relying on it.</span>
+          </article>
         </div>
       </section>
 
@@ -336,6 +380,20 @@
             </button>
             <h3>Setup Overlay</h3>
             <p>Connection and polling parameters stay in a focused overlay so the cockpit remains a monitoring surface.</p>
+          </article>
+          <article class="reveal delay-2 interactive-surface screen-card">
+            <button class="screen-frame zoom-trigger" type="button" data-full="assets/screenshots/ariec103-screen-03.webp" data-title="Value and Event Review">
+              <img src="assets/screenshots/ariec103-screen-03.webp" width="1800" height="1080" alt="Value and event review screenshot" loading="lazy" decoding="async" />
+            </button>
+            <h3>Value & Event Review</h3>
+            <p>Decoded relay values and timestamped event rows give the user a cleaner review layer than a raw byte stream.</p>
+          </article>
+          <article class="reveal delay-3 interactive-surface screen-card">
+            <button class="screen-frame zoom-trigger" type="button" data-full="assets/screenshots/ariec103-screen-04.webp" data-title="Protocol Visibility">
+              <img src="assets/screenshots/ariec103-screen-04.webp" width="1800" height="1080" alt="Protocol visibility screenshot" loading="lazy" decoding="async" />
+            </button>
+            <h3>Protocol Visibility</h3>
+            <p>Frame-level evidence stays available for engineering escalation, checksum review, mapping checks, and troubleshooting notes.</p>
           </article>
         </div>
       </section>
@@ -425,11 +483,11 @@
       <section class="section split" id="release">
         <div class="reveal">
           <p class="eyebrow">Download package</p>
-          <h2>Portable Windows ZIP for test-bench evaluation.</h2>
+          <h2>Free portable Windows ZIP for test-bench evaluation.</h2>
           <p>
-            Download the latest package from GitHub Releases, extract it, run
-            Start-ArIEC103.bat, configure the relay serial settings, then start a
-            focused IEC-103 master session. The package includes the desktop app,
+            Download the latest free open-source package from GitHub Releases, extract it,
+            run Start-ArIEC103.bat, configure the relay serial settings, then start
+            a focused IEC-103 master session. The package includes the desktop app,
             CLI tools, samples, quick-start notes, troubleshooting notes, and license files.
           </p>
         </div>
@@ -438,6 +496,7 @@
           <div class="interactive-surface"><strong>Start script</strong><span>Run Start-ArIEC103.bat after extracting the release package.</span></div>
           <div class="interactive-surface"><strong>Checksum</strong><span>SHA256SUMS.txt is provided so downloaded assets can be verified.</span></div>
           <div class="interactive-surface"><strong>Quick start</strong><span>Step-by-step setup guide for the first relay communication check.</span></div>
+          <div class="interactive-surface"><strong>Test vectors</strong><span>Sanitized IEC-103 frames are included for parser and decoder smoke checks.</span></div>
           <div class="interactive-surface"><strong>Troubleshooting</strong><span>Practical checks for no response, checksum errors, malformed frames, GI issues, and mapping gaps.</span></div>
         </div>
       </section>
@@ -472,6 +531,10 @@
         </div>
         <div class="faq-grid">
           <article class="faq-card reveal interactive-surface">
+            <h3>Is ArIEC103 free?</h3>
+            <p>Yes. ArIEC103 is free and open source under Apache-2.0. There is no license key, account requirement, or subscription for trying the release package.</p>
+          </article>
+          <article class="faq-card reveal delay-1 interactive-surface">
             <h3>What is ArIEC103 used for?</h3>
             <p>ArIEC103 runs an active IEC 60870-5-103 master session against one relay, then shows decoded values, relay events, diagnostics, and raw TX/RX frame evidence.</p>
           </article>
@@ -494,9 +557,9 @@
         <div class="download-card reveal interactive-surface">
           <div>
             <p class="eyebrow">Windows release</p>
-            <h2>Download, connect, and start a focused IEC-103 test session.</h2>
+            <h2>Download free, connect, and start a focused IEC-103 test session.</h2>
             <p>
-              Use the Windows portable package for a test bench, then configure the
+              Use the free open-source Windows portable package for a test bench, then configure the
               relay connection, run the master session, inspect values and events,
               and export the evidence your team needs.
             </p>
@@ -504,7 +567,7 @@
           <div class="download-actions">
             <a class="button primary" href="https://github.com/masarray/ARIEC103/releases/latest">
               <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-              <span>Latest release</span>
+              <span>Download latest release</span>
             </a>
             <a class="button secondary" href="https://github.com/masarray/ARIEC103">
               <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5a4.4 4.4 0 0 0-1.2-3.1 4.1 4.1 0 0 0-.1-3.1s-1-.3-3.4 1.2a11.5 11.5 0 0 0-6.2 0C6.7 2.5 5.7 2.8 5.7 2.8a4.1 4.1 0 0 0-.1 3.1A4.4 4.4 0 0 0 4.4 9c0 3.5 3 5.5 6 5.5A4.8 4.8 0 0 0 9.4 18v4"/><path d="M9 18c-4.5 2-5-2-7-2"/></svg>

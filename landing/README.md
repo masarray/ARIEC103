@@ -2,10 +2,11 @@
 
 This folder contains the static GitHub Pages landing page for ArIEC103.
 
-The page is written for users who want to understand what the application does, download the Windows package, review screenshots, and follow the basic workflow.
+The page is written for users who want to understand what the application does, download the free Windows package, review screenshots, and follow the basic workflow.
 
 Main user-facing sections:
 
+- Free and open-source positioning for new users.
 - What ArIEC103 is for.
 - Key desktop screens.
 - Controlled IEC-103 polling behavior.

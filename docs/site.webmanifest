@@ -1,7 +1,7 @@
 {
   "name": "ArIEC103 IEC-103 Master Tester",
   "short_name": "ArIEC103",
-  "description": "Windows IEC 60870-5-103 master tester and analyzer for protection relay FAT/SAT evidence, event logs, mapping profiles, and raw frame trace.",
+  "description": "Free open-source Windows IEC 60870-5-103 master tester and analyzer for protection relay FAT/SAT evidence, event logs, mapping profiles, and raw frame trace.",
   "start_url": "https://masarray.github.io/ARIEC103/",
   "scope": "https://masarray.github.io/ARIEC103/",
   "display": "standalone",

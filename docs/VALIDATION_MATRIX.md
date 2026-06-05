@@ -7,11 +7,12 @@ This document records simulator, bench, and relay checks for ArIEC103 releases. 
 | Item | Status | Notes |
 |---|---|---|
 | Build on Windows | Pending | GitHub Actions or local build result. |
-| Protocol smoke tests | Pending | `tests/ArIEC103.Protocol.Tests`. |
+| Protocol smoke tests | Available | Run `dotnet run --project tests/ArIEC103.Protocol.Tests`. |
 | Portable package created | Pending | Windows portable ZIP generated. |
 | Portable package opened | Pending | Desktop app starts from extracted ZIP. |
 | CLI help opened | Pending | CLI tools open from extracted ZIP. |
 | Simulator master run | Pending | Deterministic simulator mode produces evidence. |
+| Sanitized test vectors | Available | FT1.2 / ASDU examples are included in `samples/test-vectors/`. |
 | Real relay validation | Pending | Sanitized relay results can be added below. |
 
 ## Device validation table
@@ -20,9 +21,10 @@ For public repositories, use sanitized device names when project, customer, or v
 
 | Test ID | Device / Simulator | Connection | Baud / Parity | Link / CA | Reset Link | GI | Class 2 | Class 1 / ACD | Time Sync | Mapping | Evidence Export | Result | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| VAL-001 | Built-in simulator | Local/simulated | N/A | 1 / 1 | N/A | Pass | Pass | Pass | N/A | Example | Pass | Pending | Run for package smoke check. |
-| VAL-002 | IEC-103 relay A | RS-485 | 9600 / Even | 1 / 1 | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Sanitized bench or field test. |
-| VAL-003 | IEC-103 relay B | RS-485 | 19200 / Even | 1 / 1 | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Sanitized bench or field test. |
+| VAL-001 | Protocol test vectors | Local/offline | N/A | 1 / 1 | N/A | N/A | N/A | N/A | N/A | Example | N/A | Available | Run `dotnet run --project tests/ArIEC103.Protocol.Tests`. |
+| VAL-002 | Built-in simulator | Local/simulated | N/A | 1 / 1 | N/A | Pass | Pass | Pass | N/A | Example | Pass | Pending | Run for package smoke check. |
+| VAL-003 | IEC-103 relay A | RS-485 | 9600 / Even | 1 / 1 | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Sanitized bench or field test. |
+| VAL-004 | IEC-103 relay B | RS-485 | 19200 / Even | 1 / 1 | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Pending | Sanitized bench or field test. |
 
 ## Public beta baseline
 

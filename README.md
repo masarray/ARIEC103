@@ -1,21 +1,39 @@
-# ArIEC103 — IEC 60870-5-103 Master Tester & Analyzer for Protection Relays
+# ArIEC103 — Free IEC 60870-5-103 Master Tester & Analyzer for Protection Relays
 
 [![Build](https://github.com/masarray/ARIEC103/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/masarray/ARIEC103/actions/workflows/ci.yml)
 [![Pages](https://github.com/masarray/ARIEC103/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/masarray/ARIEC103/actions/workflows/pages.yml)
 [![Package](https://github.com/masarray/ARIEC103/actions/workflows/release-package.yml/badge.svg)](https://github.com/masarray/ARIEC103/actions/workflows/release-package.yml)
 [![Release](https://img.shields.io/github/v/release/masarray/ARIEC103?include_prereleases&label=release)](https://github.com/masarray/ARIEC103/releases)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20desktop-0078D4.svg)](#windows-desktop-tester)
+[![Platform](https://img.shields.io/badge/platform-Windows%20desktop-0078D4.svg)](#download-and-run)
 
-**ArIEC103** is an Apache-2.0 Windows desktop IEC 60870-5-103 / IEC-103 active master tester and analyzer for protection relay communication checks, FAT/SAT evidence, commissioning support, and troubleshooting review.
+**ArIEC103** is a **free and open-source** Windows desktop IEC 60870-5-103 / IEC-103 active master tester and analyzer for protection relay communication checks, FAT/SAT evidence, commissioning support, and troubleshooting review.
 
 It connects to one IEC-103 slave relay, runs a controlled master session, decodes relay responses, keeps raw TX/RX frame evidence available, and presents the result as readable engineering output for protection, SCADA, panel FAT, site acceptance, and substation automation teams.
 
-**Latest release package:** Windows portable ZIP, checksum file, quick start guide, troubleshooting guide, sample mapping profile, desktop app, and CLI tools for download-and-try evaluation.
+No license key. No subscription. No account required. Released under the **Apache-2.0** license.
 
-## Download
+<p align="center">
+  <a href="https://masarray.github.io/ARIEC103/">
+    <img src="docs/assets/screenshots/ariec103-screen-02.webp" alt="ArIEC103 line monitor cockpit screenshot" width="92%">
+  </a>
+</p>
 
-Get the latest Windows portable package from the GitHub Releases page:
+## Why try ArIEC103?
+
+ArIEC103 is designed for engineers who need to answer practical IEC-103 questions quickly:
+
+- Is the relay answering on the selected COM port, baudrate, parity, and link address?
+- Does General Interrogation start and finish cleanly?
+- Are Class 1 events requested only when the relay indicates pending event data?
+- What value/status did the relay send, and what was the relay timestamp?
+- Can the test evidence be exported for FAT/SAT notes, troubleshooting review, or handover?
+
+The tool does not hide the protocol behind a black box. It shows readable evidence first, while keeping raw FUN/INF/Type/COT/DPI/frame details available when deeper investigation is needed.
+
+## Download and run
+
+Get the latest Windows portable package from GitHub Releases:
 
 [Download latest release](https://github.com/masarray/ARIEC103/releases/latest)
 
@@ -26,15 +44,25 @@ ArIEC103-vX.Y.Z-win-x64-portable.zip
 SHA256SUMS.txt
 ```
 
-After downloading:
+First run:
 
 1. Extract the portable ZIP to a local folder.
 2. Run `Start-ArIEC103.bat`.
 3. Open **Setup**.
-4. Select the COM port, baudrate, link address, common address, timeout, GI option, and optional mapping profile.
+4. Select COM port, baudrate, link address, common address, timeout, GI option, and optional mapping profile.
 5. Click **Start**.
 6. Review **Operator Evidence**, **Value Viewer**, **Relay Event Log**, **Frame Trace**, and **Diagnostics**.
 7. Export evidence after the test session.
+
+## Screenshots
+
+| Operator evidence | Setup overlay |
+|---|---|
+| <img src="docs/assets/screenshots/ariec103-screen-01.webp" alt="ArIEC103 operator evidence grid" width="100%"> | <img src="docs/assets/screenshots/ariec103-screen-05.webp" alt="ArIEC103 setup overlay" width="100%"> |
+
+| Value and event review | Protocol visibility |
+|---|---|
+| <img src="docs/assets/screenshots/ariec103-screen-03.webp" alt="ArIEC103 value and event review" width="100%"> | <img src="docs/assets/screenshots/ariec103-screen-04.webp" alt="ArIEC103 protocol visibility screen" width="100%"> |
 
 ## Common use cases
 
@@ -45,15 +73,15 @@ After downloading:
 - User-owned signal mapping review using project JSON profiles.
 - Evidence export for FAT/SAT notes, troubleshooting records, or engineering handover.
 
-## Who this tool is for
+## What you get in the release package
 
-ArIEC103 is for protection, SCADA, commissioning, and panel/FAT engineers who need to answer practical IEC-103 questions:
-
-- Is the relay answering on the selected COM port and link address?
-- Does General Interrogation start and finish cleanly?
-- Are Class 1 events requested only when the relay indicates pending event data?
-- What value/status did the relay send, and what was the relay timestamp?
-- Can the test evidence be exported for FAT/SAT records or troubleshooting review?
+- Windows desktop IEC-103 active master tester.
+- CLI tools for active master runs, offline trace analysis, and simulator checks.
+- Sample mapping profile.
+- Sanitized IEC-103 test vectors for parser/decoder smoke tests.
+- Quick Start and Troubleshooting guides.
+- Markdown / JSON evidence output.
+- License, notices, and checksum file.
 
 ## Windows desktop tester
 
@@ -67,13 +95,6 @@ ArIEC103 is for protection, SCADA, commissioning, and panel/FAT engineers who ne
 - AutoTest-style assessment checklist.
 - Diagnostics tab for recoverable runtime issues.
 - Markdown evidence export.
-
-## Command-line tools
-
-- Active master runner for repeatable bench tests.
-- Offline trace analyzer for existing IEC-103 logs.
-- Deterministic slave simulator for validating the master engine without relay hardware.
-- Markdown and JSON report output.
 
 ## User-owned signal mapping
 
@@ -148,6 +169,21 @@ If timeout or invalid response:
 
 Class 1 is treated as pending high-priority/event data, not as a blind continuous polling loop.
 
+## Field validation kit
+
+ArIEC103 includes a lightweight validation kit so releases are easier to evaluate and regressions are easier to catch:
+
+- dependency-free protocol smoke tests;
+- sanitized FT1.2 / ASDU test vectors in `samples/test-vectors/`;
+- validation matrix template in `docs/VALIDATION_MATRIX.md`;
+- troubleshooting guide for no response, checksum errors, malformed frames, GI issues, and mapping gaps.
+
+Run the protocol checks:
+
+```bash
+dotnet run --project tests/ArIEC103.Protocol.Tests
+```
+
 ## Evidence privacy
 
 By default, exported evidence uses the mapping profile file name instead of exposing the full local workstation path.
@@ -160,6 +196,7 @@ Before sharing reports outside a project team, review project names, relay addre
 - [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
 - [Validation Matrix](docs/VALIDATION_MATRIX.md)
 - [Planned Improvements](docs/ROADMAP.md)
+- [Test Vectors](samples/test-vectors/README.md)
 
 ## Build from source
 
@@ -216,12 +253,12 @@ dotnet run --project tests/ArIEC103.Protocol.Tests
 
 ArIEC103 is intentionally focused:
 
-- one IEC-103 connection first
-- active master tester first
-- offline trace analyzer as a supporting mode
-- user mapping profiles instead of guessed vendor profiles
-- raw FUN/INF/Type/COT/DPI/frame evidence always preserved
-- no built-in vendor-specific signal database
+- one IEC-103 connection first;
+- active master tester first;
+- offline trace analyzer as a supporting mode;
+- user mapping profiles instead of guessed vendor profiles;
+- raw FUN/INF/Type/COT/DPI/frame evidence always preserved;
+- no built-in vendor-specific signal database.
 
 It is not a vendor-specific tester, not a multi-protocol SCADA gateway, and not a replacement for formal site acceptance procedures.
 
@@ -233,4 +270,4 @@ For production or contractual FAT/SAT use, validate the package with the target 
 
 ## License
 
-ArIEC103 is released under the **Apache License, Version 2.0**. See `LICENSE`.
+ArIEC103 is free and open source under the **Apache License, Version 2.0**. See `LICENSE`.

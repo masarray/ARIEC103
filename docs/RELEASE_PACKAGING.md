@@ -30,20 +30,20 @@ The portable ZIP contains the desktop app, CLI tools, sample files, documentatio
 From repository root:
 
 ```powershell
-pwsh ./scripts/publish-windows-portable.ps1 -Version 1.2.33
+pwsh ./scripts/publish-windows-portable.ps1 -Version 1.3.0
 ```
 
 Expected output:
 
 ```text
-artifacts/release/ArIEC103-v1.2.33-win-x64-portable.zip
+artifacts/release/ArIEC103-v1.3.0-win-x64-portable.zip
 artifacts/release/SHA256SUMS.txt
 ```
 
 Verify package structure:
 
 ```powershell
-pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.2.33-win-x64-portable.zip
+pwsh ./scripts/verify-release-package.ps1 -PackagePath artifacts/release/ArIEC103-v1.3.0-win-x64-portable.zip
 ```
 
 ## GitHub Actions package flow
@@ -59,7 +59,7 @@ Manual release run:
 1. Open **Actions**.
 2. Select **Build Windows portable package**.
 3. Click **Run workflow**.
-4. Set `version`, for example `1.2.33`.
+4. Set `version`, for example `1.3.0`.
 5. Keep **Create or update GitHub Release** enabled when the package should appear on the Releases page.
 6. Select pre-release or draft status as needed for the package maturity.
 7. Click **Run workflow**.
@@ -74,8 +74,8 @@ SHA256SUMS.txt
 Tag release run is also supported:
 
 ```bash
-git tag v1.2.33
-git push origin v1.2.33
+git tag v1.3.0
+git push origin v1.3.0
 ```
 
 ## Package contents checklist

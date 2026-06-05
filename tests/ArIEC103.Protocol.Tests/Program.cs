@@ -20,6 +20,12 @@ internal static class Program
             ("FT1.2 parser accepts valid fixed secondary NO DATA frame", TestParserAcceptsValidFixedNoData),
             ("FT1.2 parser detects checksum mismatch", TestParserDetectsChecksumMismatch),
             ("FT1.2 reader resynchronizes after noise bytes", TestReaderResynchronizesAfterNoise),
+            ("Sanitized fixed-frame test vector decodes", TestVectorFixedNoData),
+            ("Sanitized Type 1 event test vector decodes", TestVectorType1Event),
+            ("Sanitized Type 5 identification test vector decodes", TestVectorType5Identification),
+            ("Sanitized Type 8 GI-end test vector decodes", TestVectorType8GiEnd),
+            ("Sanitized Type 9 measurand test vector decodes", TestVectorType9Measurand),
+            ("Sanitized private ASDU test vector stays transparent", TestVectorPrivateAsdu),
             ("Master FCB is held after timeout and advances only after valid response", TestFcbHeldAfterTimeout),
             ("Master FCB is held after invalid checksum response", TestFcbHeldAfterInvalidChecksum)
         };
@@ -86,6 +92,84 @@ internal static class Program
         AssertEqual((byte)0x10, raw[0], "first returned byte must be FT1.2 fixed-frame start");
     }
 
+    private static Task TestVectorFixedNoData()
+    {
+        var parser = new Ft12Parser();
+        var frame = parser.Decode(ReadTestVector("fixed-no-data.hex"));
+
+        AssertEqual(Ft12FrameFormat.FixedLength, frame.Format, "test vector frame format");
+        AssertTrue(frame.IsChecksumValid, "test vector checksum must be valid");
+        AssertNotNull(frame.LinkControl, "link control must decode");
+        AssertEqual(9, frame.LinkControl!.FunctionCode, "NO DATA secondary function code");
+        return Task.CompletedTask;
+    }
+
+    private static Task TestVectorType1Event()
+    {
+        var frame = DecodeVector("class1-event-type1.hex");
+
+        AssertEqual(Ft12FrameFormat.VariableLength, frame.Format, "Type 1 frame format");
+        AssertTrue(frame.IsChecksumValid, "Type 1 checksum must be valid");
+        AssertNotNull(frame.Asdu, "Type 1 ASDU must decode");
+        AssertEqual(1, frame.Asdu!.TypeId, "Type 1 id");
+        AssertEqual(192, frame.Asdu.FunctionType, "Type 1 FUN");
+        AssertEqual(36, frame.Asdu.InformationNumber, "Type 1 INF");
+        AssertEqual(2, frame.Asdu.Dpi, "Type 1 DPI");
+        AssertNotNull(frame.Asdu.Time, "Type 1 relay time must decode");
+        AssertEqual("14:34:12.345", frame.Asdu.Time!.DisplayTime, "Type 1 relay timestamp");
+        return Task.CompletedTask;
+    }
+
+    private static Task TestVectorType5Identification()
+    {
+        var frame = DecodeVector("identification-type5.hex");
+
+        AssertNotNull(frame.Asdu, "Type 5 ASDU must decode");
+        AssertEqual(5, frame.Asdu!.TypeId, "Type 5 id");
+        AssertTrue(frame.Asdu.IdentificationText?.Contains("ArIEC103 Relay Simulator", StringComparison.Ordinal) == true, "identification text must be extracted");
+        return Task.CompletedTask;
+    }
+
+    private static Task TestVectorType8GiEnd()
+    {
+        var frame = DecodeVector("gi-end-type8.hex");
+
+        AssertNotNull(frame.Asdu, "Type 8 ASDU must decode");
+        AssertEqual(8, frame.Asdu!.TypeId, "Type 8 id");
+        AssertEqual(10, frame.Asdu.CauseOfTransmission, "GI end COT");
+        return Task.CompletedTask;
+    }
+
+    private static Task TestVectorType9Measurand()
+    {
+        var frame = DecodeVector("class2-measurand-type9.hex");
+
+        AssertNotNull(frame.Asdu, "Type 9 ASDU must decode");
+        AssertEqual(9, frame.Asdu!.TypeId, "Type 9 id");
+        AssertEqual(1234d, frame.Asdu.NumericValue, "Type 9 first signed 16-bit value");
+        return Task.CompletedTask;
+    }
+
+    private static Task TestVectorPrivateAsdu()
+    {
+        var frame = DecodeVector("unknown-private-type205.hex");
+
+        AssertNotNull(frame.Asdu, "private ASDU must decode as transparent payload");
+        AssertEqual(205, frame.Asdu!.TypeId, "private ASDU type id");
+        AssertEqual(DecodeStatus.Unknown, frame.Asdu.Status, "private ASDU status");
+        AssertTrue(frame.Asdu.DataBytes.Count >= 2, "private ASDU raw payload must be retained");
+        return Task.CompletedTask;
+    }
+
+    private static Ft12FrameDecode DecodeVector(string fileName)
+    {
+        var parser = new Ft12Parser();
+        var frame = parser.Decode(ReadTestVector(fileName));
+        AssertTrue(frame.IsLengthValid, $"{fileName} length must be valid");
+        AssertTrue(frame.IsChecksumValid, $"{fileName} checksum must be valid");
+        return frame;
+    }
+
     private static async Task TestFcbHeldAfterTimeout()
     {
         await using var transport = new ScriptedTransport();
@@ -138,6 +222,55 @@ internal static class Program
             LinkAddress = 1,
             CommonAddress = 1
         }, transport);
+    }
+
+    private static byte[] ReadTestVector(string fileName)
+    {
+        var root = FindRepositoryRoot();
+        var path = Path.Combine(root, "samples", "test-vectors", fileName);
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Test vector not found: {path}", path);
+        }
+
+        var bytes = new List<byte>();
+        foreach (var line in File.ReadAllLines(path))
+        {
+            var clean = line.Split('#')[0].Trim();
+            if (string.IsNullOrWhiteSpace(clean))
+            {
+                continue;
+            }
+
+            foreach (var token in clean.Split(new[] { ' ', '\t', ',', ';', ':' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                bytes.Add(Convert.ToByte(token, 16));
+            }
+        }
+
+        if (bytes.Count == 0)
+        {
+            throw new InvalidOperationException($"Test vector is empty: {path}");
+        }
+
+        return bytes.ToArray();
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        var current = new DirectoryInfo(Environment.CurrentDirectory);
+        while (current is not null)
+        {
+            if (File.Exists(Path.Combine(current.FullName, "ArIEC103.sln")) &&
+                Directory.Exists(Path.Combine(current.FullName, "samples", "test-vectors")))
+            {
+                return current.FullName;
+            }
+
+            current = current.Parent;
+        }
+
+        throw new DirectoryNotFoundException("Unable to locate repository root containing ArIEC103.sln and samples/test-vectors.");
     }
 
     private static byte[] SecondaryFixed(int functionCode, bool acd)
