@@ -26,6 +26,8 @@ internal static class Program
             ("Sanitized Type 8 GI-end test vector decodes", TestVectorType8GiEnd),
             ("Sanitized Type 9 measurand test vector decodes", TestVectorType9Measurand),
             ("Sanitized private ASDU test vector stays transparent", TestVectorPrivateAsdu),
+            ("Type 6 clock synchronization carries CP56Time2a", TestClockSynchronizationCp56Time2a),
+            ("Type 20 general command carries DCO and RII", TestGeneralCommandCarriesRii),
             ("Master FCB is held after timeout and advances only after valid response", TestFcbHeldAfterTimeout),
             ("Master FCB is held after invalid checksum response", TestFcbHeldAfterInvalidChecksum)
         };
@@ -158,6 +160,36 @@ internal static class Program
         AssertEqual(205, frame.Asdu!.TypeId, "private ASDU type id");
         AssertEqual(DecodeStatus.Unknown, frame.Asdu.Status, "private ASDU status");
         AssertTrue(frame.Asdu.DataBytes.Count >= 2, "private ASDU raw payload must be retained");
+        return Task.CompletedTask;
+    }
+
+    private static Task TestClockSynchronizationCp56Time2a()
+    {
+        // Thursday 2026-11-12 14:34:12.345 local time.
+        var asdu = Iec103AsduBuilder.ClockSynchronization(5, new DateTime(2026, 11, 12, 14, 34, 12, 345, DateTimeKind.Unspecified));
+        var expected = new byte[] { 0x06, 0x81, 0x08, 0x05, 0xFF, 0x00, 0x39, 0x30, 0x22, 0x0E, 0x8C, 0x0B, 0x1A };
+
+        AssertEqual(Convert.ToHexString(expected), Convert.ToHexString(asdu), "Type 6 ASDU");
+
+        var decoded = new AsduDecoder().Decode(asdu);
+        AssertEqual(6, decoded.TypeId, "Type 6 id");
+        AssertEqual(7, decoded.DataBytes.Count, "CP56Time2a length");
+        AssertNotNull(decoded.Time, "Type 6 time must decode");
+        AssertEqual("14:34:12.345", decoded.Time!.DisplayTime, "Type 6 time of day");
+        return Task.CompletedTask;
+    }
+
+    private static Task TestGeneralCommandCarriesRii()
+    {
+        var asdu = Iec103AsduBuilder.GeneralCommand(1, functionType: 160, informationNumber: 23, commandQualifier: 2, returnInformationIdentifier: 7);
+        var expected = new byte[] { 0x14, 0x81, 0x14, 0x01, 0xA0, 0x17, 0x02, 0x07 };
+
+        AssertEqual(Convert.ToHexString(expected), Convert.ToHexString(asdu), "Type 20 ASDU");
+
+        var decoded = new AsduDecoder().Decode(asdu);
+        AssertEqual(20, decoded.TypeId, "Type 20 id");
+        AssertEqual(2, decoded.DataBytes.Count, "DCO and RII");
+        AssertTrue(decoded.Notes.Contains("Return information identifier (RII): 7"), "RII must be decoded");
         return Task.CompletedTask;
     }
 

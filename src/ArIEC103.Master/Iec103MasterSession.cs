@@ -253,7 +253,7 @@ public sealed class Iec103MasterSession
     {
         var asdu = Iec103AsduBuilder.ClockSynchronization(_settings.CommonAddress, DateTime.Now);
         _counters.ClockSyncCommands++;
-        SetState(Iec103MasterState.ClockSynchronization, "Clock Sync", "Sending IEC-103 CP32Time2a clock synchronization command.", dataClass: "Class 2");
+        SetState(Iec103MasterState.ClockSynchronization, "Clock Sync", "Sending IEC-103 CP56Time2a clock synchronization command.", dataClass: "Class 2");
         await SendVariableAndReceiveAsync("Clock Sync", "Class 2", asdu, "Startup clock synchronization", cancellationToken).ConfigureAwait(false);
     }
 

@@ -111,6 +111,7 @@ public sealed class AsduDecoder
             case 20:
                 meaning = "General command ASDU. Command semantics are project/relay-specific and must be validated against the user mapping/profile.";
                 if (data.Length > 0) notes.Add($"Command qualifier/value byte: 0x{data[0]:X2}");
+                if (data.Length > 1) notes.Add($"Return information identifier (RII): {data[1]}");
                 break;
 
             case 23:
